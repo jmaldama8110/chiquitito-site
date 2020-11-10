@@ -9,10 +9,15 @@ const CatalogoItem = ({ item }) => {
     <div>
       <div className="content-contenedor">
         <div className="catalogo_lista_item">
+          <div>{item.categoria}</div>
           <div>{item.producto_id}</div>
           <div>{item.nombre_producto}</div>
+          <div>{item.foldersource}</div>
+          <div>{item.imagecount}</div>
           <div>{item.descripcion}</div>
           <div>{item.precio}</div>
+          <div>{item.precio2}</div>
+          <div>{item.precio3}</div>
           <button
             onClick={() => dispatchCatalogo({
               type: "REMOVE_CATALOGO",

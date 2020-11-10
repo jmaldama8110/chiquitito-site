@@ -27,6 +27,7 @@ const CarritoAdmin = () => {
         <carritoContext.Provider value={{carrito, dispatchCarrito}}>
             <h3>Mi carrito</h3>
             <CarritoLista />
+            <button>Finalizar Compra</button>
             <h3>Agrega un articulo al carrito</h3>
             <CarritoFormulario />
         </carritoContext.Provider>

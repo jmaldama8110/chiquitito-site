@@ -1,9 +1,17 @@
 .footer{
-  margin-top: 1rem;
-  padding: 1rem;
   background-color: $off_white;
-  position: fixed;
+  
+  right: 0;
   bottom: 0;
   left: 0;
-  width: 100%;
+  
+  text-align: center;
+
+}
+
+.footer-content {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0;
 }

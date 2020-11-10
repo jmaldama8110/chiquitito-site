@@ -9,7 +9,6 @@ const CarritoItem = ({ item }) => {
         <div>
             <div className="content-contenedor">
                 <div className="catalogo_lista_item">
-                    <div>{item.articulo_id}</div>
                     <div>{item.nombre_producto}</div>
                     <div>{item.precio}</div>
                     <div>{item.cantidad}</div>

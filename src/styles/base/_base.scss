@@ -14,6 +14,7 @@ body {
     font-family: Helvetica, Arial, sans-serif;
     font-size: $size_mediana;
     line-height: 1.6;
+
 }
 
 button {
@@ -22,6 +23,12 @@ button {
 
 button:disabled {
     cursor:default;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .is-active {

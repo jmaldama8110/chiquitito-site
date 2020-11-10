@@ -1,0 +1,22 @@
+
+
+.slick-dots {
+  margin-left: 0;
+}
+.slick-thumb {
+  bottom: -45px;
+}
+.slick-thumb li {
+  width: 60px;
+  height: 45px;
+}
+.slick-thumb li img {
+  width: 130%;
+  height: 130%;
+  filter: grayscale(100%);
+}
+
+.slick-thumb li.slick-active img{
+  filter: grayscale(0%);
+}
+

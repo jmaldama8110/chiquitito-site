@@ -7,16 +7,19 @@ export const Header = () => (
 
         <div className="content-contenedor">
             <div className="header__content">
-                <Link className="header__text" to="/">
+                <Link to="/">
                     <img src="/chiquititodetalles-logo.png"></img>
                 </Link>
                 <div>
                     <input type="text" placeholder="Que estas buscando?"></input>
                     <button>Buscar</button>
                 </div>
-                <Link className="header__text">Mi Cuenta</Link>
-                <Link className="header__text" to="/carrito">Carrito</Link>
-                <Link className="header__text" to="/catalogo">Productos</Link>
+                <Link to="/carrito">
+                    <img src="/icons/carrito.png"></img>
+                </Link>
+                <Link to="/login">
+                    <img src="/icons/usuario.png"></img>
+                </Link>
             </div>
 
         </div>
