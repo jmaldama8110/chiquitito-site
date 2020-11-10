@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 const CatalogoPublicoItem = ({ item }) => {
 
     const [cantidad, setCantidad] = useState('1');
 
-
-    useEffect( ()=>{
-
-    },[])
 
     const addArticuloCarrito = () => {
 
