@@ -8,7 +8,11 @@ import LandingPage from '../components/LandingPage';
 import CatalogoAdmin from '../components/CatalogoAdmin';
 import CarritoAdmin from '../components/CarritoAdmin';
 import PedidosAdmin from '../components/PedidosAdmin';
+import FormaPago from '../components/FormaPago';
+import PedidoRegistro from '../components/PedidoRegistro';
+
 import CategoriasGridCatalogo from '../components/CategoriasGridCatalogo';
+
 
 // import ProtectedRoute from './ProtectedRoute';
 // import PublicRoute from './PublicRoute';
@@ -24,6 +28,8 @@ const AppRouter = ()=> (
             <Route path="/catalogo" component={CatalogoAdmin} exact={true} />
             <Route path="/carrito" component={CarritoAdmin} exact={true} />
             <Route path="/pedidos" component={PedidosAdmin} exact={true} />
+            <Route path="/formapago" component={FormaPago} exact={true} />
+            <Route path="/pedidoregistro" component={PedidoRegistro} exact={true} />
             <Route path="/categorias/:tipo" component={CategoriasGridCatalogo} exact={true} />
         </Switch>
     </div>

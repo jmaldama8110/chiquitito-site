@@ -12,7 +12,7 @@ export const Header = () => (
                 </Link>
                 <div>
                     <input type="text" placeholder="Que estas buscando?"></input>
-                    <button>Buscar</button>
+                   
                 </div>
                 <Link to="/carrito">
                     <img src="/icons/carrito.png"></img>
