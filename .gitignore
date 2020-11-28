@@ -4,6 +4,9 @@
 /node_modules
 /.pnp
 .pnp.js
+/cert.pem
+/keytmp.pem
+
 
 # testing
 /coverage

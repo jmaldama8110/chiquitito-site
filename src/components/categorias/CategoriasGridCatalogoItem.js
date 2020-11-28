@@ -1,5 +1,5 @@
 import React, { useEffect, useState }     from 'react';
-import CatalogoImagesLista from './CatalogoImagesLista';
+
 
 
 const CategoriasGridCatalogoItem = ({ item }) => {

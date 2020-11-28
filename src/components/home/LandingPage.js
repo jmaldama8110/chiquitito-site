@@ -1,9 +1,9 @@
+import React from 'react';
 
-import React, { useEffect, useReducer } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from './Header';
+import Footer from './Footer';
 import BannerCarousel from './BannerCarousel';
-import CategoriasGridLista from './CategoriasGridLista';
+import CategoriasLista from '../categorias/CategoriasLista';
 
 export const LandingPage = () => {
 
@@ -12,7 +12,7 @@ export const LandingPage = () => {
         <div>
             <Header />
             <BannerCarousel />
-            <CategoriasGridLista />
+            <CategoriasLista />
 
             <Footer />
         </div>

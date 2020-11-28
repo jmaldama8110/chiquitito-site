@@ -2,10 +2,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import ClienteInfo from './ClienteInfo';
-import Header from './Header';
-import Footer from './Footer';
-import BannerCarousel from './BannerCarousel';
+import ClienteInfo from '../usuario/ClienteInfo';
+import Header from '../home/Header';
+import Footer from '../home/Footer';
 
 const PedidosAdmin = ()=>{
 

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import catalogoContext from '../context/catalogoContext';
+import catalogoContext from '../../context/catalogoContext';
 
 const CatalogoItem = ({ item }) => {
 

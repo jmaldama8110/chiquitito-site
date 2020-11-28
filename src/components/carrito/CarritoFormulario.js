@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import carritoContext from '../context/carritoContext';
+import carritoContext from '../../context/carritoContext';
 
 const CarritoFormulario = () => {
 
@@ -9,6 +9,7 @@ const CarritoFormulario = () => {
     const [cantidad, setCantidad] = useState('');
     const [subtotal, setSubtotal] = useState('');
 
+    
     const { dispatchCarrito } = useContext(carritoContext);
 
     const agregarArticulo = (e) => {

@@ -1,5 +1,5 @@
 import React, { useContext, useReducer } from 'react';
-import CatalogoPublicoItem from './CatalogoPublicoItem';
+import CatalogoPublicoItem from './zzCatalogoPublicoItem';
 
 import catalogoContext from '../context/catalogoContext';
 

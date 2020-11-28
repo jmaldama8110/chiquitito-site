@@ -1,7 +1,7 @@
 import React from 'react';
-import CategoriasGridItem from './CategoriasGridItem';
+import CategoriasItem from './CategoriasItem';
 
-const CategoriasGridLista = () => {
+const CategoriasLista = () => {
 
     const categorias = [
         { id: 1, ruta: "categorias/panales-toallas.png", tipo: "panales", nombre: "Pañales y toallas", descripcion: "Pañales de tela, toallas femeninas y complementos" },
@@ -12,7 +12,7 @@ const CategoriasGridLista = () => {
 
     return categorias.map((i) =>
 
-        <CategoriasGridItem
+        <CategoriasItem
             key={i.id}
             item={i}
         />
@@ -20,4 +20,4 @@ const CategoriasGridLista = () => {
     );
 }
 
-export default CategoriasGridLista;
+export default CategoriasLista;

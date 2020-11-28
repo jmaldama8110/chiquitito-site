@@ -18,13 +18,13 @@ export default class BannerCarousel extends React.Component {
             <div>
                 <Slider {...settings}>
                     <div>
-                        <img src="/images/baner/1.png" ></img>
+                        <img src="/images/baner/1.png" alt='' ></img>
                     </div>
                     <div>
-                        <img src="/images/baner/2.png"></img>
+                        <img src="/images/baner/2.png" alt=''></img>
                     </div>
                     <div>
-                        <img src="/images/baner/3.png"></img>
+                        <img src="/images/baner/3.png" alt=''></img>
                     </div>
                 </Slider>
             </div>

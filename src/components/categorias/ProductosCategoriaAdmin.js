@@ -1,11 +1,10 @@
 import React, { useEffect, useReducer } from "react";
-import Footer from "./Footer";
-import Header from './Header';
-import BannerCarousel from './BannerCarousel';
+import Footer from "../home/Footer";
+import Header from '../home/Header';
+import BannerCarousel from '../home/BannerCarousel';
 
 
-import catalogoReducer from '../reducers/catalogoReducer';
-import catalogoContext from '../context/catalogoContext';
+import catalogoReducer from '../../reducers/catalogoReducer';
 import CategoriasGridCatalogoLista from "./CategoriasGridCatalogoLista";
 
 const CategoriasGridCatalogo = ({ match }) => {

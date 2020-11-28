@@ -1,21 +1,21 @@
 import React, { useEffect, useReducer, useState } from 'react';
 
-import carritoReducer from '../reducers/carritoReducer';
-import CarritoLista from './CarritoLista';
-import totalCarrito from '../selectors/carritoTotales';
+import carritoReducer from '../../reducers/carritoReducer';
+import CarritoLista from '../carrito/CarritoLista';
+import totalCarrito from '../../selectors/carritoTotales';
 
-import carritoContext from '../context/carritoContext';
+import carritoContext from '../../context/carritoContext';
 import CarritoAdminTotales from './CarritoAdminTotales';
-import Header from './Header';
-import Footer from './Footer';
-import BannerCarousel from './BannerCarousel';
+import Header from '../home/Header';
+import Footer from '../home/Footer';
+import BannerCarousel from '../home/BannerCarousel';
 
 const CarritoAdmin = () => {
 
     const [carrito, dispatchCarrito] = useReducer(carritoReducer, []);
     const [total, setTotal] = useState('0');
 
-    useEffect(() => {
+    useEffect( () => {
         const localData = JSON.parse(localStorage.getItem('carrito'));
 
         if (localData) {

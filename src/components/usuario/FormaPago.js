@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Header from './Header';
-import Footer from './Footer';
-import BannerCarousel from './BannerCarousel';
+import Header from '../home/Header';
+import Footer from '../home/Footer';
 
 const FormaPago = () => {
 
@@ -13,7 +12,7 @@ const FormaPago = () => {
             
             <h3>Formas de pago</h3>
             <div>
-                <img src="/images/medios-pago/pago-icono.png"></img>
+                <img src="/images/medios-pago/pago-icono.png" alt=''></img>
             </div>
 
             <div>
@@ -34,15 +33,15 @@ const FormaPago = () => {
                 </Link>
 
                 <div>
-                    <img src='/images/medios-pago/spei.png'></img>
+                    <img src='/images/medios-pago/spei.png' alt=''></img>
                 </div>
 
                 <div>
-                    <img src='/images/medios-pago/oxxo-logo.png'></img>
+                    <img src='/images/medios-pago/oxxo-logo.png' alt=''></img>
                 </div>
 
                 <div>
-                    <img src='/images/medios-pago/bbva.png'></img>
+                    <img src='/images/medios-pago/bbva.png' alt=''></img>
                 </div>
 
 

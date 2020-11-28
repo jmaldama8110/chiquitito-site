@@ -1,10 +1,10 @@
 import React, { useEffect, useReducer } from 'react';
 
-import catalogoReducer from '../reducers/catalogoReducer';
+import catalogoReducer from '../../reducers/catalogoReducer';
 import CatalogoLista from './CatalogoLista';
 import CatalogoFormulario from './CatalogoFormulario';
 
-import catalogoContext from '../context/catalogoContext';
+import catalogoContext from '../../context/catalogoContext';
 
 const CatalogoAdmin = () => {
 
