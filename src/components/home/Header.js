@@ -1,32 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AutosuggestBusqueda from './AutosuggestBusqueda';
 
+const Header = () => {
 
-export const Header = () => (
-    <header className="header">
-
-        <div className="content-contenedor">
-            <div className="header__content">
-                <Link to="/">
-                    <img src="/chiquititodetalles-logo.png" alt=''></img>
-                </Link>
-                <div>
-                    <input type="text" placeholder="Que estas buscando?"></input>
-                   
+    return (
+        <header className="header">
+            <div className="content-contenedor">
+                <div className="header__content">
+                    <Link to="/">
+                        <img src="/chiquititodetalles-logo.png" alt=''></img>
+                    </Link>
+                    <div>
+                        <AutosuggestBusqueda />
+                    </div>
+                    <Link to="/carrito">
+                        Carrito
+                    </Link>
+                    <Link to="/login">
+                        Mi cuenta
+                    </Link>
                 </div>
-                <Link to="/carrito">
-                    <img src="/icons/carrito.png" alt=''></img>
-                </Link>
-                <Link to="/login">
-                    <img src="/icons/usuario.png" alt=''></img>
-                </Link>
+
             </div>
 
-        </div>
+        </header>
 
-    </header>
+    );
 
-);
+}
 
 
 export default Header;

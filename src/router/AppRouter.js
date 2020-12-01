@@ -11,6 +11,7 @@ import FormaPago from '../components/usuario/FormaPago';
 import PedidoRegistro from '../components/pedidos/PedidoRegistro';
 import PedidosAdmin from '../components/pedidos/PedidosAdmin';
 
+
 import ProductosCategoriaAdmin from '../components/categorias/ProductosCategoriaAdmin';
 
 

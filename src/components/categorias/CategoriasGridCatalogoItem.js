@@ -45,7 +45,7 @@ const CategoriasGridCatalogoItem = ({ item }) => {
 
     return (
         <div>
-            <img src={`/images/productos/${item.foldersource}/01.png`} alt=''></img>
+            <img src={`/images/productos/${item.foldersource}/${item.imagecount}.png`} alt=''></img>
             <div>
                 <h2>{item.nombre_producto}</h2>
                 <p>{item.descripcion}</p>

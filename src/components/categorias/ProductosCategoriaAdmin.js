@@ -7,7 +7,7 @@ import BannerCarousel from '../home/BannerCarousel';
 import catalogoReducer from '../../reducers/catalogoReducer';
 import CategoriasGridCatalogoLista from "./CategoriasGridCatalogoLista";
 
-const CategoriasGridCatalogo = ({ match }) => {
+const ProductosCategoriaAdmin = ({ match }) => {
 
     const [productosPorCategoria, dispatchCatalogo] = useReducer(catalogoReducer, []);
 
@@ -39,4 +39,4 @@ const CategoriasGridCatalogo = ({ match }) => {
     );
 }
 
-export default CategoriasGridCatalogo;
+export default ProductosCategoriaAdmin;

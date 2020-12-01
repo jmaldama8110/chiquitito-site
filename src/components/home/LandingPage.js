@@ -7,7 +7,6 @@ import CategoriasLista from '../categorias/CategoriasLista';
 
 export const LandingPage = () => {
 
-
     return (
         <div>
             <Header />
