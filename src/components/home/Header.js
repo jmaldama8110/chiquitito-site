@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AutosuggestBusqueda from './AutosuggestBusqueda';
+import BusquedaInput from './BusquedaInput';
 
 const Header = () => {
 
@@ -12,7 +12,7 @@ const Header = () => {
                         <img src="/chiquititodetalles-logo.png" alt=''></img>
                     </Link>
                     <div>
-                        <AutosuggestBusqueda />
+                        <BusquedaInput />
                     </div>
                     <Link to="/carrito">
                         Carrito

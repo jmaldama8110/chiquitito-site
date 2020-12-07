@@ -3,6 +3,7 @@ import catalogoContext from '../../context/catalogoContext';
 
 const CatalogoItem = ({ item }) => {
 
+  
   const { dispatchCatalogo } = useContext(catalogoContext);
 
   return (

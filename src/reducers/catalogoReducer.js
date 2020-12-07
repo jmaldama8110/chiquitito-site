@@ -1,4 +1,5 @@
-
+  
+  
   const catalogoReducer = (state, action) => {
     
     switch( action.type ) {

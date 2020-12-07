@@ -3,6 +3,7 @@ import CatalogoItem from './CatalogoItem';
 import catalogoContext from '../../context/catalogoContext';
 
 const CatalogoLista = ( ) => {
+
     
     const { catalogo } = useContext(catalogoContext);
 

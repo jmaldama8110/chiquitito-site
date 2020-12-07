@@ -23,6 +23,7 @@ const CatalogoAdmin = () => {
         localStorage.setItem('catalogo', JSON.stringify(catalogo));
     }, [catalogo])
 
+    
     return (
 
         <catalogoContext.Provider value={{catalogo, dispatchCatalogo}}>

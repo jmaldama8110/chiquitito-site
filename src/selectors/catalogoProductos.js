@@ -1,4 +1,3 @@
-import moment from 'moment';
 // Aplicar filtros
 export default (productosArray, { busquedaTexto, ordenarPor }) => {
 

@@ -10,8 +10,8 @@ export default class BannerCarousel extends React.Component {
             slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: true,
-            speed: 1000,
-            autoplaySpeed: 2500,
+            speed: 1500,
+            autoplaySpeed: 3500,
             cssEase: "linear"
         };
         return (

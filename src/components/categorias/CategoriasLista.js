@@ -12,10 +12,12 @@ const CategoriasLista = () => {
 
     return categorias.map((i) =>
 
-        <CategoriasItem
-            key={i.id}
-            item={i}
-        />
+        <div className='column'>
+            <CategoriasItem
+                key={i.id}
+                item={i}
+            />
+        </div>
 
     );
 }

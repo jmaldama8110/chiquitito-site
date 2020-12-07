@@ -1,5 +1,4 @@
 
-
 .slick-dots {
   margin-left: 0;
 }
@@ -11,12 +10,13 @@
   height: 45px;
 }
 .slick-thumb li img {
-  width: 130%;
-  height: 130%;
+  width: 100%;
+  height: 100%;
   filter: grayscale(100%);
 }
 
 .slick-thumb li.slick-active img{
   filter: grayscale(0%);
 }
+
 

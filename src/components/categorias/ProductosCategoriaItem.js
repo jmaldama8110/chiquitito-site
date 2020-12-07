@@ -1,8 +1,6 @@
 import React, { useEffect, useState }     from 'react';
 
-
-
-const CategoriasGridCatalogoItem = ({ item }) => {
+const ProductosCategoriaItem = ({ item }) => {
     
 
     const [precioLista, setPrecioLista] = useState('');
@@ -92,4 +90,4 @@ const CategoriasGridCatalogoItem = ({ item }) => {
 
 }
 
-export default CategoriasGridCatalogoItem;
+export default ProductosCategoriaItem;

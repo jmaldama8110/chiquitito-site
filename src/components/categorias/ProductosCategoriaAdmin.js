@@ -5,7 +5,7 @@ import BannerCarousel from '../home/BannerCarousel';
 
 
 import catalogoReducer from '../../reducers/catalogoReducer';
-import CategoriasGridCatalogoLista from "./CategoriasGridCatalogoLista";
+import ProductosCategoriaLista from "./ProductosCategoriaLista";
 
 const ProductosCategoriaAdmin = ({ match }) => {
 
@@ -29,7 +29,7 @@ const ProductosCategoriaAdmin = ({ match }) => {
         <div>
             <Header />
             <BannerCarousel />
-            <CategoriasGridCatalogoLista
+            <ProductosCategoriaLista
                 productosLista={productosPorCategoria}
             />
             <Footer />
