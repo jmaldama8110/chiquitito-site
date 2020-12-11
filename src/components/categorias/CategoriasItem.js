@@ -5,7 +5,7 @@ const CategoriasItem = ({ item }) => {
 
     return (
         <div className='card'>
-            <img src={`images/${item.ruta}`} alt='' style={{width:'100%'}}></img>
+            <img src={`images/${item.ruta}`} alt=''></img>
             <h1>{item.nombre}</h1>
             <p>{item.descripcion}</p>
             <Link to={`categorias/${item.tipo}`}>

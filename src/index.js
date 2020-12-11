@@ -14,10 +14,16 @@ ReactDOM.render(<AppRouter />, document.getElementById('root') );
 
 
 
-/*// ------ Change to play mode ------
-import ProductoPreviewPage from './components/play/ProductoPreviewPage';
-ReactDOM.render(<ProductoPreviewPage />, document.getElementById('root') );
-*/
+// ------ Change to play mode 1 ------
+// import ProductoDetallePage from './components/play/ProductoDetallePage';
+// ReactDOM.render(<ProductoDetallePage />, document.getElementById('root') );
+
+
+// ------ Change to play mode 2------
+// import ModalSample from './components/play/ModalSample';
+// ReactDOM.render(<ModalSample />, document.getElementById('root') );
+
+
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
