@@ -14,12 +14,7 @@ ReactDOM.render(<AppRouter />, document.getElementById('root') );
 
 
 
-// ------ Change to play mode 1 ------
-// import ProductoDetallePage from './components/play/ProductoDetallePage';
-// ReactDOM.render(<ProductoDetallePage />, document.getElementById('root') );
-
-
-// ------ Change to play mode 2------
+//------ Change to play mode 2------
 // import ModalSample from './components/play/ModalSample';
 // ReactDOM.render(<ModalSample />, document.getElementById('root') );
 

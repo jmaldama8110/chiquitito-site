@@ -40,7 +40,6 @@ const ProductosCategoriaItem = ({ item }) => {
 
     }
 
-
     return (
         <div>
             <img src={`/images/productos/${item.foldersource}/${item.imagecount}.png`} alt=''></img>

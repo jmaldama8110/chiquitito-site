@@ -1,6 +1,6 @@
 import React from 'react';
 
-const myFunction = (imgs) => {
+const verDetalleImg = (imgs) => {
 
     // Get the expanded image
     const expandImg = document.getElementById("expandedImg");
@@ -18,21 +18,21 @@ const myFunction = (imgs) => {
 
 const ProductoDetallePage = () => {
     return (
-        <div className='contenedo-producto-detalle-general'>
+        <div className='contenedor-producto-detalle-general'>
             <div className='contenedor-producto-detalle-columnas'>
                 <div className='contenedor-producto-detalle'>
                     <div className='fila-tab'>
                         <div className='col-tab'>
-                            <img src='images/productos/telas/1.png' alt='Nopales' onClick={myFunction} />
+                            <img src='/images/productos/panales/1.png' alt='Nopales' onClick={verDetalleImg} />
                         </div>
                         <div className='col-tab'>
-                            <img src='images/productos/telas/2.png' alt='Nopales 2' onClick={myFunction} />
+                            <img src='/images/productos/panales/2.png' alt='Nopales 2' onClick={verDetalleImg} />
                         </div>
                         <div className='col-tab'>
-                            <img src='images/productos/telas/3.png' alt='Perritos' onClick={myFunction} />
+                            <img src='/images/productos/panales/3.png' alt='Perritos' onClick={verDetalleImg} />
                         </div>
                         <div className='col-tab'>
-                            <img src='images/productos/telas/4.png' alt='Regional jalisco   ' onClick={myFunction} />
+                            <img src='/images/productos/panales/4.png' alt='Regional jalisco' onClick={verDetalleImg} />
                         </div>
                     </div>
 
