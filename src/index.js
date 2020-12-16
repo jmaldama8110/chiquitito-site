@@ -14,7 +14,7 @@ ReactDOM.render(<AppRouter />, document.getElementById('root') );
 
 
 
-//------ Change to play mode 2------
+// //------ Change to play mode 2------
 // import ModalSample from './components/play/ModalSample';
 // ReactDOM.render(<ModalSample />, document.getElementById('root') );
 

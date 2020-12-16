@@ -12,7 +12,7 @@ import PedidoRegistro from '../components/pedidos/PedidoRegistro';
 import PedidosAdmin from '../components/pedidos/PedidosAdmin';
 
 
-import ProductosCategoriaAdmin from '../components/categorias/ProductosCategoriaAdmin';
+import ProductosLista from '../components/categorias/ProductosLista';
 
 
 // import ProtectedRoute from './ProtectedRoute';
@@ -31,7 +31,7 @@ const AppRouter = ()=> (
             <Route path="/pedidos" component={PedidosAdmin} exact={true} />
             <Route path="/formapago" component={FormaPago} exact={true} />
             <Route path="/pedidoregistro" component={PedidoRegistro} exact={true} />
-            <Route path="/categorias/:tipo" component={ProductosCategoriaAdmin} exact={true} />
+            <Route path="/categorias/:tipo" component={ProductosLista} exact={true} />
         </Switch>
     </div>
 

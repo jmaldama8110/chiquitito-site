@@ -7,21 +7,21 @@ import totalCarrito from '../../selectors/carritoTotales';
 import carritoContext from '../../context/carritoContext';
 import CarritoAdminTotales from './CarritoAdminTotales';
 import Header from '../home/Header';
-import Footer from '../home/Footer';
-import BannerCarousel from '../home/BannerCarousel';
 
 const CarritoAdmin = () => {
 
     const [carrito, dispatchCarrito] = useReducer(carritoReducer, []);
-    const [total, setTotal] = useState('0');
+    const [totales, setTotales] = useState({})
 
-    useEffect( () => {
+
+
+
+    useEffect(() => {
         const localData = JSON.parse(localStorage.getItem('carrito'));
 
         if (localData) {
-
+            setTotales(totalCarrito(localData));
             dispatchCarrito({ type: 'POPULATE_CARRITO', carrito: localData });
-            setTotal(totalCarrito(localData).total.toString());
         }
     }, []);
 
@@ -29,21 +29,31 @@ const CarritoAdmin = () => {
     useEffect(() => {
 
         localStorage.setItem('carrito', JSON.stringify(carrito));
-        setTotal(totalCarrito(carrito).total.toString());
+
+        setTotales(totalCarrito(carrito));
 
     }, [carrito]);
 
     return (
         <div>
             <Header />
-            <BannerCarousel />
 
             <carritoContext.Provider value={{ carrito, dispatchCarrito }}>
+
                 <h3>Mi carrito</h3>
-                <CarritoLista />
-                <CarritoAdminTotales totalCarrito={total} />
+                <table>
+                    <tr>
+                        <th></th>
+                        <th>Articulo</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                    </tr>
+                    <CarritoLista />
+                </table>
+
             </carritoContext.Provider>
-            <Footer />
+            <CarritoAdminTotales totales={totales} />
 
         </div>
     );

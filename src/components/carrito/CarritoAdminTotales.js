@@ -1,11 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-const CarritoAdminTotales = ({totalCarrito}) =>{
+const CarritoAdminTotales = ({totales}) =>{
 
     return (
         <div>
-            <h2>Total ${totalCarrito}</h2>
+            <h2>Total {totales.conteo} articulos = ${totales.total}
+            + Envio ({totales.envio}) ${totales.totalMasEnvio}</h2>
             <Link to='/'>
                 <p>Continuar comprando</p>
             </Link>
