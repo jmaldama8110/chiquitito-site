@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import carritoReducer from '../../reducers/carritoReducer';
 import CarritoLista from '../carrito/CarritoLista';
@@ -12,8 +13,6 @@ const CarritoAdmin = () => {
 
     const [carrito, dispatchCarrito] = useReducer(carritoReducer, []);
     const [totales, setTotales] = useState({})
-
-
 
 
     useEffect(() => {
@@ -37,7 +36,7 @@ const CarritoAdmin = () => {
     return (
         <div>
             <Header />
-
+        <div className='contenido-centrado'>
             <carritoContext.Provider value={{ carrito, dispatchCarrito }}>
 
                 <h3>Mi carrito</h3>
@@ -45,6 +44,7 @@ const CarritoAdmin = () => {
                     <tr>
                         <th></th>
                         <th>Articulo</th>
+                        <th>Color/estampado</th>
                         <th>Precio</th>
                         <th>Cantidad</th>
                         <th>Total</th>
@@ -53,8 +53,12 @@ const CarritoAdmin = () => {
                 </table>
 
             </carritoContext.Provider>
-            <CarritoAdminTotales totales={totales} />
 
+            { totales.total > 0 ?
+                <CarritoAdminTotales totales={totales} /> :
+                <h3>Aun no has agregado articulos a tu carrito, <Link to='/'>Regresar!  </Link></h3>}
+
+        </div>
         </div>
     );
 

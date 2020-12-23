@@ -35,8 +35,7 @@ const ProductosCategoriaItem = ({ item }) => {
         const nuevoArray = [...originalArray, articuloAdd]
         localStorage.setItem('carrito', JSON.stringify(nuevoArray));
 
-
-        alert('Se ha agregado el articulo!');
+        
 
     }
 

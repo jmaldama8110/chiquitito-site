@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ProductoDetallePage from '../../components/play/ProductoDetallePage';
+import ProductoDetallePage from '../../components/categorias/ProductoDetallePage';
 
 
 const onModalOpen = () => {

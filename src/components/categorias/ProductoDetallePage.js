@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import ProductoItemImgs from './ProductoItemImgs'
+import ProductoItemImgs from './ProductoItemImgs';
+import Alertamsg from '../home/Alertamsg';
 
-const ProductoDetallePage = ({ subitem }) => {
+const ProductoDetallePage = ({ subitem, cerrarModal }) => {
 
     const [precioLista, setPrecioLista] = useState('');
-    const [cantidad, setCantidad] = useState('');
+    const [subTotal, setSubtotal] = useState(0);
 
+    const [imgTituloSeleccionado, setImgTituloSeleccioando] = useState('');
+
+    const [alCarrito, setAlcarrito] = useState(false);
+    
 
     useEffect(() => {
 
-        document.getElementById(`${subitem.producto_id}precioElemento`).value = subitem.precio;
         setPrecioLista(subitem.precio);
-
-        document.getElementById(`${subitem.producto_id}cantidad`).value = '1';
-        setCantidad('1');
+        setSubtotal(subitem.precio);
+        
+        const cantidadElement = document.getElementById(`${subitem.producto_id}cantidad`);
+        cantidadElement.value = '1'
 
         fxOnLoadWindow();
 
     }, []);
 
     const fxOnLoadWindow = () => {
-        
+
         const expandImg = document.getElementById(`${subitem.producto_id}expandedImg`);
         const imgText = document.getElementById(`${subitem.producto_id}textoImg`);
 
@@ -28,78 +33,80 @@ const ProductoDetallePage = ({ subitem }) => {
 
         expandImg.src = val;
         imgText.innerHTML = subitem.imgs[0].titulo;
+        setImgTituloSeleccioando(subitem.imgs[0].titulo);
 
         expandImg.parentElement.style.display = "block";
+
 
     }
 
 
     const verDetalleImg = (imgs) => {
 
-        // Get the expanded image
         const expandImg = document.getElementById(`${subitem.producto_id}expandedImg`);
-    
-        // Get the image text
         const imgText = document.getElementById(`${subitem.producto_id}textoImg`);
-
-        // Use the same src in the expanded image as the image being clicked on from the grid
         expandImg.src = imgs.target.src;
 
-        // Use the value of the alt attribute of the clickable image as text inside the expanded image
         imgText.innerHTML = imgs.target.alt;
-        // Show the container element (hidden with CSS)
+        setImgTituloSeleccioando(imgs.target.alt);
+
         expandImg.parentElement.style.display = "block";
 
-
-
     }
+
     const fxSetSelectedValue = (valor) => {
 
         switch (valor) {
 
             case '1':
-                document.getElementById(`${subitem.producto_id}precioElemento`).value = subitem.precio;
                 setPrecioLista(subitem.precio);
+                setSubtotal(subitem.precio)
                 break;
             case '2':
-                document.getElementById(`${subitem.producto_id}precioElemento`).value = subitem.precio2;
                 setPrecioLista(subitem.precio2);
+                setSubtotal(subitem.precio2)
                 break;
             case '3':
-                document.getElementById(`${subitem.producto_id}precioElemento`).value = subitem.precio3;
                 setPrecioLista(subitem.precio3);
+                setSubtotal(subitem.precio3)
                 break;
             default:
-                document.getElementById(`${subitem.producto_id}precioElemento`).value = subitem.precio;
                 setPrecioLista(subitem.precio);
+                setSubtotal(subitem.precio)
+                break;
         }
 
+
     }
+
+    const onChangeCantidad = () => {
+
+        const cantidad = document.getElementById(`${subitem.producto_id}cantidad`).value;
+        setSubtotal( parseFloat(cantidad)*precioLista );
+    } 
 
     const addArticuloCarrito = () => {
 
         const originalArray = JSON.parse(localStorage.getItem('carrito')); // recuperar y parsea el arreglo de localStorage
         const randId = Math.floor(Math.random() * 100);
-
-        const subtotal = parseFloat(precioLista) * parseFloat(cantidad);
+        const cantidad = document.getElementById(`${subitem.producto_id}cantidad`).value;
 
         const articuloAdd = { // elemento a agregar en el carrito
             articulo_id: randId.toString(),
             nombre_producto: subitem.nombre_producto,
+            imagen_titulo: imgTituloSeleccionado,
             precio: precioLista,
             cantidad,
-            subtotal: subtotal.toString()
+            subtotal: subTotal
         }
 
         // Agrega articulo al array y guarda en el local storage
         const nuevoArray = [...originalArray, articuloAdd]
         localStorage.setItem('carrito', JSON.stringify(nuevoArray));
 
-
-        alert('Se ha agregado el articulo!');
+        setAlcarrito(true)
 
     }
-
 
     return (
         <div className='contenedor-producto-detalle-general'>
@@ -120,12 +127,13 @@ const ProductoDetallePage = ({ subitem }) => {
             </div>
             <div className='contenedor-producto-detalle-columnas'>
                 <h1>{subitem.nombre_producto}</h1>
-                <p className='price'>${subitem.precio}</p>
+                <p className='price'>${precioLista}</p>
                 <p>{subitem.descripcion}</p>
 
 
-                <input type="text" id={`${subitem.producto_id}precioElemento`} value={precioLista} onChange={(e) => setPrecioLista(e.target.value)} disabled></input>
-                <input type="text" id={`${subitem.producto_id}cantidad`} value={cantidad} onChange={(e) => setCantidad(e.target.value)}></input>
+                <input type="text"
+                    value={subTotal} onChange={(e) => setSubtotal(e.target.value)} disabled>
+                </input>
                 {subitem.categoria === 'telas' ?
                     <select name="variante"
                         onChange={(e) => fxSetSelectedValue(e.target.value)}>
@@ -139,10 +147,14 @@ const ProductoDetallePage = ({ subitem }) => {
                         <option value="1">Pieza</option>
                     </select>
                 }
+                <input type="number" id={`${subitem.producto_id}cantidad`}
+                    min={1}
+                    max={9}
+                    onChange={onChangeCantidad}>
+                </input>
 
-
-                <p><button onClick={addArticuloCarrito}>Al Carrito</button></p>
-
+                <p>{ alCarrito  ? <Alertamsg mensaje='Has agregado este articulo al carrito!' tipo='green' /> 
+                                :<button onClick={addArticuloCarrito}>Al Carrito</button>  }</p>
 
             </div>
         </div>

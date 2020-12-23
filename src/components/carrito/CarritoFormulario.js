@@ -8,6 +8,7 @@ const CarritoFormulario = () => {
     const [precio, setPrecio] = useState('');
     const [cantidad, setCantidad] = useState('');
     const [subtotal, setSubtotal] = useState('');
+    const [imagen_titulo, setImagenTitulo] = useState('');
 
     
     const { dispatchCarrito } = useContext(carritoContext);
@@ -17,7 +18,7 @@ const CarritoFormulario = () => {
 
         dispatchCarrito({
             type: 'ADD_CARRITO',
-            articulo: { articulo_id, nombre_producto, precio, cantidad, subtotal }
+            articulo: { articulo_id, nombre_producto, precio, cantidad, subtotal,imagen_titulo }
         });
 
         setArticuloId('');
@@ -25,6 +26,7 @@ const CarritoFormulario = () => {
         setPrecio('0');
         setCantidad('0');
         setSubtotal('0');
+        setImagenTitulo('');
 
     }
 
@@ -33,6 +35,7 @@ const CarritoFormulario = () => {
         <div>
             <form onSubmit={agregarArticulo}>
                 <input value={articulo_id} onChange={(e) => setArticuloId(e.target.value)} />
+                <input value={imagen_titulo} onChange={(e) => setImagenTitulo(e.target.value)} />
                 <input value={nombre_producto} onChange={(e) => setNombreProducto(e.target.value)} placeholder="Escrito el nombre del producto" />
                 <input value={precio} onChange={(e) => setPrecio(e.target.value)} />
                 <input value={cantidad} onChange={(e) => setCantidad(e.target.value)} />

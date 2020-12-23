@@ -13,7 +13,7 @@ const CarritoAdminTotales = ({totales}) =>{
             <Link to="/pedidos">
                 <p>Finalizar compra</p>
             </Link>
-            <h3>Gastos de envío e impuestos calculados al finalizar la compra</h3>
+
         </div>
 
 

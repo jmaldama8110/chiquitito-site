@@ -13,6 +13,7 @@ const CarritoItem = ({ item }) => {
                     articulo_id: item.articulo_id
                 })} >&times;</span>
             <td>{item.nombre_producto}</td>
+            <td>{item.imagen_titulo}</td>
             <td>{item.precio}</td>
             <td>{item.cantidad}</td>
             <td>{item.subtotal}</td>

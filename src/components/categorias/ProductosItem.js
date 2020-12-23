@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ProductoDetallePage from '../../components/play/ProductoDetallePage';
+import ProductoDetallePage from '../../components/categorias/ProductoDetallePage';
 
 
 
@@ -29,13 +29,11 @@ const ProductosItem = ({ item }) => {
     const onSalirConClicWindow = (e) => {
     
         const modal = document.getElementById(`${item.producto_id}myModal`);
-        if (e.target == modal) {
+        if (e.target === modal) {
             modal.style.display = 'none';
     
         }
     }
-    
-    
 
     return (
         <div className='card'>
@@ -53,6 +51,7 @@ const ProductosItem = ({ item }) => {
                     <ProductoDetallePage
                         key={item.producto_id}
                         subitem={item}
+                        cerrarModal={onCloseModal}
                      />
 
 

@@ -1,52 +1,82 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import Header from '../home/Header';
-import Footer from '../home/Footer';
 
 const FormaPago = () => {
 
+    useEffect(() => {
+
+        const defaultTab = document.getElementById('oxxo');
+        defaultTab.style.display = "block";
+        defaultTab.className += " active";
+
+    }, []);
+
+    const verTabulador = (event, tabId) => {
+
+        // // Get all elements with class="tabcontent" and hide them
+        const tabcontent = document.getElementsByClassName("tabulador-content");
+
+        let step;
+        for (step = 0; step < tabcontent.length; step++) {
+            tabcontent[step].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        const tablinks = document.getElementsByClassName("tabuladorlinks");
+
+        for (step = 0; step < tablinks.length; step++) {
+            tablinks[step].className = tablinks[step].className.replace(" active", "");
+        }
+
+        // // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(tabId).style.display = "block";
+        event.target.className += " active";
+
+    }
     return (
         <div>
             <Header />
-            
-            <h3>Formas de pago</h3>
-            <div>
-                <img src="/images/medios-pago/pago-icono.png" alt=''></img>
-            </div>
+            <div className='contenido-centrado'>
 
-            <div>
-                <input type="radio" id="op1" name="medios-pago" value="op1" />
-                <label for="op1">Deposito OXXO</label> <br></br>
-
-                <input type="radio" id="op2" name="medios-pago" value="op2" />
-                <label for="op2">Transferencia SPEI</label> <br></br>
-
-                <input type="radio" id="op3" name="medios-pago" value="op3" />
-                <label for="op3">Deposito bancario</label> <br></br>
-
-                <input type="radio" id="op4" name="medios-pago" value="op4" />
-                <label for="op4">Efectivo</label> <br></br>
-
+                <h1>Formas de pago</h1>
                 <Link to="/pedidoregistro">
                     <p>Finalizar</p>
                 </Link>
 
-                <div>
-                    <img src='/images/medios-pago/spei.png' alt=''></img>
+                <div className="tabulador">
+                    <button class="tabuladorlinks" onClick={(event) => verTabulador(event, 'oxxo')}>Pago en OXXO</button>
+                    <button class="tabuladorlinks" onClick={(event) => verTabulador(event, 'transferencia')}>Transferencia bancaria</button>
+                    <button class="tabuladorlinks" onClick={(event) => verTabulador(event, 'efectivo')}>Efectivo</button>
                 </div>
 
-                <div>
-                    <img src='/images/medios-pago/oxxo-logo.png' alt=''></img>
+
+                <div id="oxxo" className="tabulador-content">
+                    <h3>Banamex</h3>
+                    <h1>5204-1671-3054-9595</h1>
+                    <h4>Titular: Cyntia Reyes Hartman</h4>
+                    <img src='/images/medios-pago/tdd-saldazo.png'></img>
                 </div>
 
-                <div>
-                    <img src='/images/medios-pago/bbva.png' alt=''></img>
+                <div id="transferencia" className="tabulador-content">
+                    <img src='/images/medios-pago/bbva-logo.png'></img>
+                    <h2>Cuenta CLABE: 012100027972012657</h2>
+                    <h2>Numero de cuenta: 2797201265</h2>
+
+                    <img src='/images/medios-pago/banamex-logo.png'></img>
+                    <h2>Numero de plastico: 5204-1671-3054-9595</h2>
                 </div>
+
+                <div id="efectivo" className="tabulador-content">
+                    <h3>Pagos en efectivo</h3>
+                    <p>Contacta al vendedor para realizar tu pago por este medio...</p>
+                </div>
+
 
 
             </div>
-            <Footer />
+
         </div>
 
     );

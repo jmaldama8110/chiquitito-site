@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import BusquedaInput from './BusquedaInput';
 
+
 const Header = () => {
 
     return (
@@ -15,10 +16,7 @@ const Header = () => {
                         <BusquedaInput />
                     </div>
                     <Link to="/carrito">
-                        Carrito
-                    </Link>
-                    <Link to="/login">
-                        Mi cuenta
+                        <img src='/icons/carrito-de-compras.png' width="50" height="50"></img>
                     </Link>
                 </div>
 
