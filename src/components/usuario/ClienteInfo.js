@@ -1,13 +1,8 @@
-import React, { useContext } from 'react';
-import PerfilChip from './PerfilChip';
+import React from 'react';
 
 import { history } from '../../router/AppRouter';
-import authContext from '../../context/authContext';
-
 
 const ClienteInfo = () => {
-
-    const { userData } = useContext(authContext);
 
     function onContinuar(e) {
         e.preventDefault();
@@ -18,17 +13,14 @@ const ClienteInfo = () => {
 
         <div className='contenido-centrado'>
             <h1>Datos de Entrega</h1>
-            { userData.conectado ?
                 <div className='formulario-container'>
                     <form onSubmit={onContinuar}>
 
-                        <PerfilChip />
-
                         <label>Nombre(s)</label>
-                        <input type='text' id='nombresId' value={userData.first_name} placeholder='Nombre(s)'></input>
+                        <input type='text' id='nombresId' placeholder='Nombre(s)'></input>
 
                         <label>Apellido(s)</label>
-                        <input type='text' id='apellidosId' value={userData.last_name} placeholder='Apellido(s)'></input>
+                        <input type='text' id='apellidosId' placeholder='Apellido(s)'></input>
 
                         <label>Calle y numero</label>
                         <input type="text" placeholder="Calle y numero de casa"></input>
@@ -60,12 +52,7 @@ const ClienteInfo = () => {
 
                     </form>
 
-                </div>
-                :
-                <div>
-                    <p>Para registrar tu pedido, inicia sesion con Facebook</p>
-                </div>
-            }
+                </div>            
         </div>
     );
 }

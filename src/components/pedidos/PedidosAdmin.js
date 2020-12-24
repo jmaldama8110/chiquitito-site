@@ -2,7 +2,7 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import ClienteInfo from '../usuario/ClienteInfo';
+import PerfilChip from '../usuario/PerfilChip';
 import Header from '../home/Header';
 import authReducer from '../../reducers/authReducer';
 import authContext from '../../context/authContext';
@@ -13,7 +13,7 @@ const PedidosAdmin = () => {
 
     useEffect(() => {
 
-        if( !window.FB ) return;
+        if (!window.FB) return;
         // intenta hacer el loguin
         window.FB.getLoginStatus(res => {
             if (res.status === 'connected') {
@@ -29,12 +29,11 @@ const PedidosAdmin = () => {
 
     }, []);
 
-
-
     const fxFacebookLoginHandler = (res) => {
 
         if (res.status === 'connected') {
             window.FB.api(`/${res.authResponse.userID}?fields=first_name,last_name,email,picture`, userData => {
+
                 const usuarioData = {
                     ...userData,
                     accessToken: res.authResponse.accessToken,
@@ -49,14 +48,25 @@ const PedidosAdmin = () => {
         }
     }
 
+    const cerrarSesion = () => {
+        window.FB.logout( function (res)  {
+            console.log(res);
+        });
+        dispatchUserData({ type: 'LOGOUT' })
+    }
+
 
     return (
         <div>
             <Header />
             <div className='contenido-centrado'>
-            
+
                 <authContext.Provider value={{ userData, dispatchUserData }}>
-                    <ClienteInfo />
+                
+                    {userData.conectado
+                        ? <PerfilChip onLogout={cerrarSesion} />
+                        : <p>No conectado</p>}
+
                 </authContext.Provider>
                 <Link to='carrito'>
                     <p>Regresar al carrito</p>

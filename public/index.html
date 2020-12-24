@@ -10,31 +10,31 @@
 
 <body>
   <script>
-  const appId = '1831372963679416';
-  const apiVersion = 'v9.0';
+    const appId = '1831372963679416';
+    const apiVersion = 'v9.0';
 
-    window.fbAsyncInit = function() {
+    window.fbAsyncInit = function () {
       FB.init({
-        appId      : appId,
-        cookie     : true,
-        xfbml      : true,
-        version    : apiVersion
+        appId: appId,
+        cookie: true,
+        xfbml: true,
+        version: apiVersion
       });
-        
-      FB.AppEvents.logPageView();   
-        
-    };
-  
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-     
-  </script>
 
+      FB.AppEvents.logPageView();
+
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+  </script>
+ 
   <div id="root"></div>
 </body>
 
