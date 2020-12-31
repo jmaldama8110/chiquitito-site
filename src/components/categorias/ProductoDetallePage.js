@@ -6,6 +6,7 @@ const ProductoDetallePage = ({ subitem, cerrarModal }) => {
 
     const [precioLista, setPrecioLista] = useState('');
     const [subTotal, setSubtotal] = useState(0);
+    const [unidad, setUnidad] = useState('')
 
     const [imgTituloSeleccionado, setImgTituloSeleccioando] = useState('');
 
@@ -54,7 +55,10 @@ const ProductoDetallePage = ({ subitem, cerrarModal }) => {
 
     }
 
-    const fxSetSelectedValue = (valor) => {
+    const fxSetSelectedValue = (e) => {
+
+        const valor = e.target.value;
+
 
         switch (valor) {
 
@@ -91,12 +95,18 @@ const ProductoDetallePage = ({ subitem, cerrarModal }) => {
         const randId = Math.floor(Math.random() * 100);
         const cantidad = document.getElementById(`${subitem.producto_id}cantidad`).value;
 
+        const elementoVariante = document.getElementById(`${subitem.producto_id}variante`);
+        const index = elementoVariante.selectedIndex;
+        const unidad = elementoVariante[index].text;
+        
+
         const articuloAdd = { // elemento a agregar en el carrito
             articulo_id: randId.toString(),
             nombre_producto: subitem.nombre_producto,
             imagen_titulo: imgTituloSeleccionado,
             precio: precioLista,
             cantidad,
+            unidad,
             subtotal: subTotal
         }
 
@@ -135,15 +145,16 @@ const ProductoDetallePage = ({ subitem, cerrarModal }) => {
                     value={subTotal} onChange={(e) => setSubtotal(e.target.value)} disabled>
                 </input>
                 {subitem.categoria === 'telas' ?
-                    <select name="variante"
-                        onChange={(e) => fxSetSelectedValue(e.target.value)}>
+                    <select id={`${subitem.producto_id}variante`}
+                        onChange={(e) => fxSetSelectedValue(e)}>
 
                         <option value="1">1 mts</option>
                         <option value="2">1/2 mts</option>
                         <option value="3">1/4 mts</option>
                     </select>
                     :
-                    <select name="variante">
+                    <select id={`${subitem.producto_id}variante`}
+                            onChange={ (e)=>fxSetSelectedValue(e)}>
                         <option value="1">Pieza</option>
                     </select>
                 }

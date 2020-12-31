@@ -16,6 +16,7 @@ const CarritoItem = ({ item }) => {
             <td>{item.imagen_titulo}</td>
             <td>{item.precio}</td>
             <td>{item.cantidad}</td>
+            <td>{item.unidad}</td>
             <td>{item.subtotal}</td>
 
         </tr>

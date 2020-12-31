@@ -1,16 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import Header from '../home/Header';
+import totalCarrito from '../../selectors/carritoTotales';
+import db from '../../firebase/firebase';
+
+import Loader from '../home/Loader';
 
 const FormaPago = () => {
+
+    const [totales, setTotales] = useState({})
+    const [carrito, setCarrito] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [metodopago, setMetodoPago] = useState('');
 
     useEffect(() => {
 
         const defaultTab = document.getElementById('oxxo');
         defaultTab.style.display = "block";
         defaultTab.className += " active";
+        setMetodoPago('oxxo')
 
+        /////////////// carga los datos del carrito de localstorage //////////////////
+        const localData = JSON.parse(localStorage.getItem('carrito'));
+        //////////////////////////////////////////////////////////////////////////////
+        if (localData) {
+            setCarrito(localData);
+            setTotales(totalCarrito(localData));
+        }
+        //////////////////////////////////////////////////////////////////////////////
     }, []);
 
     const verTabulador = (event, tabId) => {
@@ -33,33 +51,43 @@ const FormaPago = () => {
         // // Show the current tab, and add an "active" class to the button that opened the tab
         document.getElementById(tabId).style.display = "block";
         event.target.className += " active";
+        setMetodoPago(tabId);
 
     }
+
+    const onRegistrarPedido = () => {
+
+        
+
+    }
+
     return (
         <div>
             <Header />
+            { loading ? 
+                <Loader /> :
             <div className='contenido-centrado'>
 
-                <h1>Formas de pago</h1>
-                <Link to="/pedidoregistro">
-                    <p>Finalizar</p>
-                </Link>
+                <h1>Elige una forma de pago</h1>
+                <Link onClick={onRegistrarPedido}>Finalizar</Link>
 
                 <div className="tabulador">
-                    <button class="tabuladorlinks" onClick={(event) => verTabulador(event, 'oxxo')}>Pago en OXXO</button>
-                    <button class="tabuladorlinks" onClick={(event) => verTabulador(event, 'transferencia')}>Transferencia bancaria</button>
-                    <button class="tabuladorlinks" onClick={(event) => verTabulador(event, 'efectivo')}>Efectivo</button>
+                    <button className="tabuladorlinks" onClick={(event) => verTabulador(event, 'oxxo')}>Pago en OXXO</button>
+                    <button className="tabuladorlinks" onClick={(event) => verTabulador(event, 'transferencia')}>Transferencia bancaria</button>
+                    <button className="tabuladorlinks" onClick={(event) => verTabulador(event, 'efectivo')}>Efectivo</button>
                 </div>
 
 
                 <div id="oxxo" className="tabulador-content">
-                    <h3>Banamex</h3>
-                    <h1>5204-1671-3054-9595</h1>
+                    <h1>Importe a depositar: ${totales.totalMasEnvio}</h1>
+                    <p>* Tienda oxxo cobrará una comision de 9.0 pesos más IVA en cada deposito</p>
+                    <h2>5204-1671-3054-9595</h2>
                     <h4>Titular: Cyntia Reyes Hartman</h4>
                     <img src='/images/medios-pago/tdd-saldazo.png'></img>
                 </div>
 
                 <div id="transferencia" className="tabulador-content">
+                    <h1>Importe a transferir: ${totales.totalMasEnvio}</h1>
                     <img src='/images/medios-pago/bbva-logo.png'></img>
                     <h2>Cuenta CLABE: 012100027972012657</h2>
                     <h2>Numero de cuenta: 2797201265</h2>
@@ -73,9 +101,8 @@ const FormaPago = () => {
                     <p>Contacta al vendedor para realizar tu pago por este medio...</p>
                 </div>
 
-
-
             </div>
+            }
 
         </div>
 

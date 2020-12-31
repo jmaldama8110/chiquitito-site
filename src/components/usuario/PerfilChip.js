@@ -2,19 +2,15 @@ import React, { useContext } from 'react';
 
 import authContext from '../../context/authContext';
 
-const PerfilChip = ({onLogout}) => {
+const PerfilChip = () => {
 
     const { userData } = useContext(authContext);
 
     return (
         <div className="perfilchip">
             <img src={userData.picture.data.url} alt="Person" width="96" height="96" />
-            <div>
-                <span>{userData.first_name}</span>
-                <button onClick={onLogout}>Cerrar Sesion</button>
-            </div>
-
-
+            {`${userData.first_name} ${userData.last_name}`}
+            
         </div>
     );
 }

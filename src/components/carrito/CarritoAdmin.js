@@ -47,6 +47,7 @@ const CarritoAdmin = () => {
                         <th>Color/estampado</th>
                         <th>Precio</th>
                         <th>Cantidad</th>
+                        <th>Unidad</th>
                         <th>Total</th>
                     </tr>
                     <CarritoLista />

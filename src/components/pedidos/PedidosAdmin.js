@@ -4,17 +4,31 @@ import { Link } from 'react-router-dom';
 
 import PerfilChip from '../usuario/PerfilChip';
 import Header from '../home/Header';
+import Loader from '../home/Loader';
+
+
 import authReducer from '../../reducers/authReducer';
 import authContext from '../../context/authContext';
+
+
+import ClienteInfo from '../usuario/ClienteInfo';
+
 
 const PedidosAdmin = () => {
 
     const [userData, dispatchUserData] = useReducer(authReducer, {});
+    const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
 
+        onAttemptLogin();
+
+    }, []);
+
+    const onAttemptLogin = () => {
         if (!window.FB) return;
-        // intenta hacer el loguin
+        // intenta hacer el login
         window.FB.getLoginStatus(res => {
             if (res.status === 'connected') {
                 fxFacebookLoginHandler(res);
@@ -27,7 +41,8 @@ const PedidosAdmin = () => {
             }
         });
 
-    }, []);
+    }
+
 
     const fxFacebookLoginHandler = (res) => {
 
@@ -39,40 +54,59 @@ const PedidosAdmin = () => {
                     accessToken: res.authResponse.accessToken,
                     conectado: true
                 }
+
                 dispatchUserData({
                     type: 'LOGIN',
                     usuarioData
                 });
-
+                setLoading(false);
             });
         }
     }
 
     const cerrarSesion = () => {
-        window.FB.logout( function (res)  {
-            console.log(res);
+        setLoading(true);
+        window.FB.logout(function (res) {
+            dispatchUserData({ type: 'LOGOUT' });
+            setLoading(false);
         });
-        dispatchUserData({ type: 'LOGOUT' })
-    }
 
+
+    }
 
     return (
         <div>
             <Header />
-            <div className='contenido-centrado'>
+            {
+                loading ? <Loader /> :
+                    <div className='contenido-centrado'>
 
-                <authContext.Provider value={{ userData, dispatchUserData }}>
-                
-                    {userData.conectado
-                        ? <PerfilChip onLogout={cerrarSesion} />
-                        : <p>No conectado</p>}
+                        <authContext.Provider value={{ userData }}>
 
-                </authContext.Provider>
-                <Link to='carrito'>
-                    <p>Regresar al carrito</p>
-                </Link>
-            </div>
+                            {userData.conectado
+                                ?
+                                <div className='perfilchip-contenedor'>
 
+                                    <h1>¿Eres tu?</h1>
+                                    <PerfilChip /><br />
+                                    <p>Si no eres tu, puedes cerrar sesion <Link onClick={cerrarSesion}> Aqui!</Link> </p>
+                                    <Link to='/carrito'>Regresar al carrito</Link>
+                                    <div>
+                                        <ClienteInfo />
+                                    </div>
+                                </div>
+                                :
+                                <div>
+                                    <p>No conectado, regresa de nuevo al carrito e intantelo nuevamente!</p>
+                                    <Link to='/carrito'>Regresar al carrito</Link>
+                                </div>
+
+                            }
+
+                        </authContext.Provider>
+
+                    </div>
+            }
         </div>
     );
 }
