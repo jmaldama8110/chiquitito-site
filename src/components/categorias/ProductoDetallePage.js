@@ -6,7 +6,6 @@ const ProductoDetallePage = ({ subitem, cerrarModal }) => {
 
     const [precioLista, setPrecioLista] = useState('');
     const [subTotal, setSubtotal] = useState(0);
-    const [unidad, setUnidad] = useState('')
 
     const [imgTituloSeleccionado, setImgTituloSeleccioando] = useState('');
 

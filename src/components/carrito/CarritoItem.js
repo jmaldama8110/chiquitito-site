@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import carritoContext from '../../context/carritoContext';
+import CarritoItemCantidad from './CarritoItemCantidad';
 
 const CarritoItem = ({ item }) => {
 
     const { dispatchCarrito } = useContext(carritoContext);
+
 
     return (
         <tr>
@@ -15,7 +17,7 @@ const CarritoItem = ({ item }) => {
             <td>{item.nombre_producto}</td>
             <td>{item.imagen_titulo}</td>
             <td>{item.precio}</td>
-            <td>{item.cantidad}</td>
+            <td><CarritoItemCantidad item={item} /></td>
             <td>{item.unidad}</td>
             <td>{item.subtotal}</td>
 

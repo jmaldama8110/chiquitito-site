@@ -2,34 +2,45 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import Header from '../home/Header';
-import totalCarrito from '../../selectors/carritoTotales';
 import db from '../../firebase/firebase';
 
 import Loader from '../home/Loader';
+import PedidoRegistro from '../pedidos/PedidoRegistro';
 
-const FormaPago = () => {
+const FormaPago = ({ match }) => {
 
-    const [totales, setTotales] = useState({})
-    const [carrito, setCarrito] = useState([]);
+    const [total, setTotal] = useState('0');
+    const [nombres, setNombre] = useState('');
+
     const [loading, setLoading] = useState(false);
     const [metodopago, setMetodoPago] = useState('');
 
+    const [mostraConfirmacion, setMostrarConfirmacion] = useState(false);
+
     useEffect(() => {
 
-        const defaultTab = document.getElementById('oxxo');
-        defaultTab.style.display = "block";
-        defaultTab.className += " active";
-        setMetodoPago('oxxo')
+        setLoading(true);
 
-        /////////////// carga los datos del carrito de localstorage //////////////////
-        const localData = JSON.parse(localStorage.getItem('carrito'));
-        //////////////////////////////////////////////////////////////////////////////
-        if (localData) {
-            setCarrito(localData);
-            setTotales(totalCarrito(localData));
-        }
-        //////////////////////////////////////////////////////////////////////////////
+
+        const pedidoRef = db.ref(`pedidos/${match.params.pedidoid}`);
+        pedidoRef.once('value').then(snapshot => {
+            const pedidoSnapshot = snapshot.val();
+            setTotal(pedidoSnapshot.total);
+            setNombre(pedidoSnapshot.nombres);
+            
+            
+            setLoading(false);
+            
+            const defaultTab = document.getElementById('oxxo');
+            defaultTab.style.display = "block";
+            defaultTab.className += " active";
+            setMetodoPago('oxxo')
+
+        });
+
     }, []);
+
+
 
     const verTabulador = (event, tabId) => {
 
@@ -57,56 +68,79 @@ const FormaPago = () => {
 
     const onRegistrarPedido = () => {
 
-        
+        setLoading(true);
+
+        db.ref(`pedidos/${match.params.pedidoid}`).update({
+            metodopago
+        }).then(() => {
+            
+            
+
+            setLoading(false);
+            setMostrarConfirmacion(true);
+        })
 
     }
 
-    return (
-        <div>
-            <Header />
-            { loading ? 
-                <Loader /> :
-            <div className='contenido-centrado'>
+    if (!mostraConfirmacion) {
 
-                <h1>Elige una forma de pago</h1>
-                <Link onClick={onRegistrarPedido}>Finalizar</Link>
+        return (
 
-                <div className="tabulador">
-                    <button className="tabuladorlinks" onClick={(event) => verTabulador(event, 'oxxo')}>Pago en OXXO</button>
-                    <button className="tabuladorlinks" onClick={(event) => verTabulador(event, 'transferencia')}>Transferencia bancaria</button>
-                    <button className="tabuladorlinks" onClick={(event) => verTabulador(event, 'efectivo')}>Efectivo</button>
-                </div>
+            <div>
+                <Header />
+
+                { loading ?
+                    <Loader /> :
+                    <div className='contenido-centrado'>
+
+                        <h1>Elige una forma de pago</h1>
+                        <Link onClick={onRegistrarPedido}>Finalizar</Link>
+
+                        <div className="tabulador">
+                            <button className="tabuladorlinks" onClick={(event) => verTabulador(event, 'oxxo')}>Pago en OXXO</button>
+                            <button className="tabuladorlinks" onClick={(event) => verTabulador(event, 'transferencia')}>Transferencia bancaria</button>
+                            <button className="tabuladorlinks" onClick={(event) => verTabulador(event, 'efectivo')}>Efectivo</button>
+                        </div>
 
 
-                <div id="oxxo" className="tabulador-content">
-                    <h1>Importe a depositar: ${totales.totalMasEnvio}</h1>
-                    <p>* Tienda oxxo cobrará una comision de 9.0 pesos más IVA en cada deposito</p>
-                    <h2>5204-1671-3054-9595</h2>
-                    <h4>Titular: Cyntia Reyes Hartman</h4>
-                    <img src='/images/medios-pago/tdd-saldazo.png'></img>
-                </div>
+                        <div id="oxxo" className="tabulador-content">
+                            <h1>Importe a depositar: ${total}</h1>
+                            <p>* Tienda oxxo cobrará una comision de 9.0 pesos más IVA en cada deposito</p>
+                            <h2>5204-1671-3054-9595</h2>
+                            <h4>Titular: Cyntia Reyes Hartman</h4>
+                            <img src='/images/medios-pago/tdd-saldazo.png'></img>
+                        </div>
 
-                <div id="transferencia" className="tabulador-content">
-                    <h1>Importe a transferir: ${totales.totalMasEnvio}</h1>
-                    <img src='/images/medios-pago/bbva-logo.png'></img>
-                    <h2>Cuenta CLABE: 012100027972012657</h2>
-                    <h2>Numero de cuenta: 2797201265</h2>
+                        <div id="transferencia" className="tabulador-content">
+                            <h1>Importe a transferir: ${total}</h1>
+                            <img src='/images/medios-pago/bbva-logo.png'></img>
+                            <h2>Cuenta CLABE: 012100027972012657</h2>
+                            <h2>Numero de cuenta: 2797201265</h2>
 
-                    <img src='/images/medios-pago/banamex-logo.png'></img>
-                    <h2>Numero de plastico: 5204-1671-3054-9595</h2>
-                </div>
+                            <img src='/images/medios-pago/banamex-logo.png'></img>
+                            <h2>Numero de plastico: 5204-1671-3054-9595</h2>
+                        </div>
 
-                <div id="efectivo" className="tabulador-content">
-                    <h3>Pagos en efectivo</h3>
-                    <p>Contacta al vendedor para realizar tu pago por este medio...</p>
-                </div>
+                        <div id="efectivo" className="tabulador-content">
+                            <h3>Pagos en efectivo</h3>
+                            <p>Contacta al vendedor para realizar tu pago por este medio...</p>
+                        </div>
+
+                    </div>
+                }
 
             </div>
-            }
 
-        </div>
-
-    );
+        );
+    }
+    else {
+        return (
+            <div>
+                <Header />
+                <PedidoRegistro nombres={nombres} total={total} pedidoid={match.params.pedidoid} />
+            </div>
+        );
+    }
 }
 
 export default FormaPago;

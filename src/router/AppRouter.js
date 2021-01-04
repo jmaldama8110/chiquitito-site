@@ -26,8 +26,7 @@ const AppRouter = ()=> (
             <Route path="/carrito" component={CarritoAdmin} exact={true} />
             <Route path="/pedidos" component={PedidosAdmin} exact={true} />
             <Route path='/clienteinfo' component={ClienteInfo} exact={true} />
-            <Route path="/formapago" component={FormaPago} exact={true} />
-            <Route path="/pedidoregistro" component={PedidoRegistro} exact={true} />
+            <Route path="/formapago/:pedidoid" component={FormaPago} exact={true} />
             <Route path="/politica-privacidad" component={PoliticaPrivacidadPage} exact={true} />
             <Route path="/condiciones-servicio" component={CondicionesServicioPage} exact={true} />
             <Route path="/categorias/:tipo" component={ProductosLista} exact={true} />

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 
 import { history } from '../../router/AppRouter';
 import authContext from '../../context/authContext';
-
+import totalCarrito from '../../selectors/carritoTotales';
 import db from '../../firebase/firebase';
 
 import Loader from '../home/Loader';
@@ -21,12 +21,25 @@ const ClienteInfo = () => {
     const [registrado, setRegistrado] = useState(false);
     const [keyref, setKeyRef] = useState('');
 
+    const [totales, setTotales] = useState({})
+    const [carrito, setCarrito] = useState([]);
+
     const { userData } = useContext(authContext);
 
 
     useEffect(() => {
 
         onCargarDatos();
+
+        /////////////// carga los datos del carrito de localstorage //////////////////
+        const localData = JSON.parse(localStorage.getItem('carrito'));
+        //////////////////////////////////////////////////////////////////////////////
+        if (localData) {
+            setCarrito(localData);
+            setTotales(totalCarrito(localData));
+        }
+        //////////////////////////////////////////////////////////////////////////////
+
 
     }, []);
 
@@ -70,7 +83,7 @@ const ClienteInfo = () => {
 
     }
 
-    function onContinuar(e) {
+    const onContinuar = (e) => {
         e.preventDefault();
 
         setLoading(true);
@@ -86,18 +99,78 @@ const ClienteInfo = () => {
             usuario_facebook_id: userData.id
         }
 
-        if( !registrado ) { // boolean que controla si el usuario fue encontrado en el metodo onCargarDatos
-            db.ref('usuarios').push(usuarioDb).then(() => {
-                console.log('Usuario registrado por primera vez!')
+        if (!registrado) { // boolean que controla si el usuario fue encontrado en el metodo onCargarDatos
+
+            const usuariosNodoRef = db.ref('usuarios');
+            const usuarioNuevoRef = usuariosNodoRef.push();
+            usuarioNuevoRef.set({
+                ...usuarioDb
+            }).then(() => {
+                const pedidoDb = {
+                    usuario_ref: usuarioNuevoRef.key,
+                    estatus: 'A',
+                    envio: totales.envio,
+                    fecha_pedido: Date.now(),
+                    total: totales.totalMasEnvio,
+                    ...usuarioDb
+                }
+                const pedidosNodoRef = db.ref('pedidos');
+                const pedidoNuevoRef = pedidosNodoRef.push();
+                pedidoNuevoRef.set({
+                    ...pedidoDb
+                }).then(() => {
+
+                    carrito.forEach( item => {
+                        db.ref('pedido_items').push({
+                            pedido_ref: pedidoNuevoRef.key,
+                            ...item
+                        })
+                    });
+
+                    localStorage.clear();
+                    setLoading(false);
+                    history.push(`/formapago/${pedidoNuevoRef.key}`);
+                });
             })
-        
-        } else { // actualiza los datos del usuario encontrado previamente
-            db.ref(`usuarios/${keyref}`).update(usuarioDb).then( ()=>{
-                console.log('Usuario ya registrado ha sido actualizado!')
-            });
+
+
         }
-        setLoading(false);
-        history.push('/formapago');
+        else { // actualiza los datos del usuario encontrado previamente
+
+            const pedidoDb = {
+                usuario_ref: keyref,
+                estatus: 'A',
+                envio: totales.envio,
+                fecha_pedido: Date.now(),
+                total: totales.totalMasEnvio,
+                ...usuarioDb
+            }
+
+            db.ref(`usuarios/${keyref}`).update(usuarioDb).then(() => {
+
+            }).then(() => {
+                const pedidosNodoRef = db.ref('pedidos');
+                const pedidoNuevoRef = pedidosNodoRef.push();
+                pedidoNuevoRef.set({
+                    ...pedidoDb
+                }).then(() => {
+
+                    carrito.forEach( item => {
+                        db.ref('pedido_items').push({
+                            pedido_ref: pedidoNuevoRef.key,
+                            ...item
+                        })
+                    });
+
+                    localStorage.clear();
+                    setLoading(false);
+                    history.push(`/formapago/${pedidoNuevoRef.key}`);
+                });
+
+            })
+
+
+        }
     }
 
     return (

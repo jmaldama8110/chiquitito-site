@@ -20,28 +20,50 @@ app.get('*', (req, res) => {
 });
 
 app.post('/facebook-baja', (req, res) => {
-    
 
 
+    const parsedRequest = parseSignedRequest(req.body,process.env.FACEBOOK_SECRETKEY);
+
+    console.log(parsedRequest);
+
+    const respuestaFacebook = {
+        url: 'https://www.chiquititodetalles.com/baja-condiciones',
+        confirmation_code: '3503840934020'
+    };
+    res.send(respuestaFacebook)
 })
 
-const  parseRequest = (signed_request, secret) => {
-    signed_request = signed_request.split('.');
-    var encoded_sig = signed_request[0];
-    var payload = signed_request[1];
+const base64decode = (data) => {
+    while (data.length % 4 !== 0) {
+        data += '=';
+    }
+    data = data.replace(/-/g, '+').replace(/_/g, '/');
+    return new Buffer.from(data, 'base64').toString('utf-8');
+}
 
+const parseSignedRequest = (signedRequest, secret) => {
 
-    var data = JSON.parse(new Buffer(payload, 'base64').toString());
+    const encoded_data = signedRequest.split('.', 2);
+    
+    // decode the data
+    const sig = encoded_data[0];
+    const json = base64decode(encoded_data[1]);
+    const data = JSON.parse(json);
 
-    if (data.algorithm.toUpperCase() !== 'HMAC-SHA256')
-      return null;
+    if (!data.algorithm || data.algorithm.toUpperCase() != 'HMAC-SHA256') {
+        throw Error('Unknown algorithm: ' + data.algorithm + '. Expected HMAC-SHA256');
+    }
 
-    var hmac = crypto.createHmac('sha256', secret);
-    var encoded_payload = hmac.update(payload).digest('base64')
-      .replace(/\//g, '_').replace(/\+/g, '-').replace(/={1,2}$/, '');
+    const expected_sig = crypto.createHmac('sha256', secret)
+        .update(encoded_data[1])
+        .digest('base64')
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace('=', '');
 
-    if (encoded_sig !== encoded_payload)
-      return null;
+    if (sig !== expected_sig) {
+        throw Error('Invalid signature: ' + sig + '. Expected ' + expected_sig);
+    }
 
     return data;
 }
