@@ -53,7 +53,6 @@ const ProductosLista = ({ match }) => {
             precio2: "230",
             precio3: "230"
         },
-
         {
             categoria: "telas", producto_id: "03", nombre_producto: "Tela pul diseños mexicanos", foldersource: "telas01",
             descripcion: "Tela pul impermeable y transpirable. Composición poliester con recubrimiento de TPU, Certificación OEKO-TEX. Se vende en 3 presentaciones: por metro de 150 cm de ancho,  medio metro y 150 cm de ancho y por cuarto de 75 x 50 cm",
@@ -159,13 +158,19 @@ const ProductosLista = ({ match }) => {
     return (
         <div>
             <Header />
-            {productosPorCategoria.map((item) =>
-            <div className='productos-column'>
-                <ProductosItem
-                    key={item.producto_id}
-                    item={item}
-                />
-            </div>)}
+            <div className='categorias'>
+                <div className='container flexible'>
+                    { productosPorCategoria.length > 0 ?
+                        productosPorCategoria.map((item) =>
+                        <ProductosItem
+                            key={item.producto_id}
+                            item={item}
+                        />) :
+                        <h1>Proximamente!</h1>
+                    }
+                </div>
+            </div>
+
         </div>
     );
 }

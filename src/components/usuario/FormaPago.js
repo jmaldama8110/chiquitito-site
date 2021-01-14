@@ -1,19 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import getHoyMasDosDias from "../../utils/addDiasFecha";
+
 import Header from '../home/Header';
+import PDFCreador from '../../components/home/PDFCreador';
+import Loader from '../home/Loader';
+
 import db from '../../firebase/firebase';
 
-import Loader from '../home/Loader';
-import PedidoRegistro from '../pedidos/PedidoRegistro';
 
 const FormaPago = ({ match }) => {
 
     const [total, setTotal] = useState('0');
     const [nombres, setNombre] = useState('');
+    const [direccion, setDireccion] = useState('');
+    const [envioPor, setEnvioPor] = useState('');
+    const [numero_celular, setNumeroCelular] = useState('');
+
+    const [pedidoItems, setPedidoItems] = useState([]);
+    const [diaPago, setDiaPago] = useState('')
+    const [pedidoIdShort, setPedidoIdShort] = useState('');
 
     const [loading, setLoading] = useState(false);
+
     const [metodopago, setMetodoPago] = useState('');
+    const [titular, setTitular] = useState('');
+    const [cuentaTDD, setCuentaTDD] = useState('');
 
     const [mostraConfirmacion, setMostrarConfirmacion] = useState(false);
 
@@ -21,26 +34,58 @@ const FormaPago = ({ match }) => {
 
         setLoading(true);
 
-
         const pedidoRef = db.ref(`pedidos/${match.params.pedidoid}`);
         pedidoRef.once('value').then(snapshot => {
+
             const pedidoSnapshot = snapshot.val();
             setTotal(pedidoSnapshot.total);
             setNombre(pedidoSnapshot.nombres);
-            
-            
+            setDireccion( `${pedidoSnapshot.direccion}, ${pedidoSnapshot.municipio}, CP:${pedidoSnapshot.codigo_postal} - ${pedidoSnapshot.estado}` );
+            setEnvioPor('fedex');
+            setNumeroCelular(`${pedidoSnapshot.numero_celular}`)
+
+            /* Recupera los items del pedido indicado */
+            db.ref('pedido_items')
+                .once('value')
+                .then(snapshot => {
+
+                    const pedidoItems = [];
+                    snapshot.forEach(childSnap => {
+                        const item = childSnap.val();
+
+                        if (item.pedido_ref === match.params.pedidoid) {
+                            pedidoItems.push({
+                                keyref: childSnap.key,
+                                ...item
+                            })
+                        }
+                    });
+                    setPedidoItems(pedidoItems);
+                
+                });
+            /*  - - - - - -  - - - -*/
+
+            const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            setDiaPago(getHoyMasDosDias(2, opts));
+
+            /// saca las ultimas 5 letras del codigo del pedido //// 
+            const inicio = match.params.pedidoid.length - 5;
+            const ultimo = match.params.pedidoid.length;
+            setPedidoIdShort(match.params.pedidoid.substring(inicio, ultimo));
+            /*------------------------------------------------------------*/
+
             setLoading(false);
-            
+
             const defaultTab = document.getElementById('oxxo');
             defaultTab.style.display = "block";
             defaultTab.className += " active";
             setMetodoPago('oxxo')
+            setTitular('Cyntia Reyes Hartmann');
+            setCuentaTDD('5204-1671-3054-9595')
 
         });
 
     }, []);
-
-
 
     const verTabulador = (event, tabId) => {
 
@@ -64,17 +109,34 @@ const FormaPago = ({ match }) => {
         event.target.className += " active";
         setMetodoPago(tabId);
 
+        switch( tabId ){
+            case 'oxxo':
+                setTitular('Cyntia Reyes Hartmann');
+                setCuentaTDD('5204-1671-3054-9595');
+                break;
+            case 'transferencia':
+                setTitular('Cyntia Reyes Hartmann');
+                setCuentaTDD('BBVA-> CLABE:012100027972012657 / No Cuenta: 2797201265');
+                break;        
+            default:
+                setTitular('');
+                setCuentaTDD('');
+                break;
+        }
+
+
     }
 
     const onRegistrarPedido = () => {
 
         setLoading(true);
 
-        db.ref(`pedidos/${match.params.pedidoid}`).update({
-            metodopago
+        db.ref(`pedidos/${match.params.pedidoid}`).update({ // actualiza los datos
+            metodopago,
+            pedidoIdShort,
+            diaPago,
+            estatus: 'B'
         }).then(() => {
-            
-            
 
             setLoading(false);
             setMostrarConfirmacion(true);
@@ -106,16 +168,16 @@ const FormaPago = ({ match }) => {
                         <div id="oxxo" className="tabulador-content">
                             <h1>Importe a depositar: ${total}</h1>
                             <p>* Tienda oxxo cobrará una comision de 9.0 pesos más IVA en cada deposito</p>
-                            <h2>5204-1671-3054-9595</h2>
-                            <h4>Titular: Cyntia Reyes Hartman</h4>
+                            <h2>{cuentaTDD}</h2>
+                            <h4>Titular: {titular}</h4>
                             <img src='/images/medios-pago/tdd-saldazo.png'></img>
                         </div>
 
                         <div id="transferencia" className="tabulador-content">
                             <h1>Importe a transferir: ${total}</h1>
                             <img src='/images/medios-pago/bbva-logo.png'></img>
-                            <h2>Cuenta CLABE: 012100027972012657</h2>
-                            <h2>Numero de cuenta: 2797201265</h2>
+                            <h2>{cuentaTDD}</h2>
+                            <h2>Titular: {titular}</h2>
 
                             <img src='/images/medios-pago/banamex-logo.png'></img>
                             <h2>Numero de plastico: 5204-1671-3054-9595</h2>
@@ -134,10 +196,31 @@ const FormaPago = ({ match }) => {
         );
     }
     else {
+
+        const resumen = {
+            nombres,
+            pedidoIdShort,
+            diaPago,
+            total,
+            metodopago,
+            direccion,
+            envioPor,
+            numero_celular,
+            titular,
+            cuentaTDD,
+            pedidoItems
+        }
+
         return (
             <div>
                 <Header />
-                <PedidoRegistro nombres={nombres} total={total} pedidoid={match.params.pedidoid} />
+                <div className='container flexible'>
+                    <PDFCreador data={resumen} />
+                    <Link to="/">
+                        <p>Regresar a la tienda</p>
+                    </Link>
+
+                </div>
             </div>
         );
     }

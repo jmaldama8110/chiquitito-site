@@ -43,7 +43,7 @@ const ProductosItem = ({ item }) => {
 
     return (
         <div className='card'>
-            <img src={`/images/productos/${item.foldersource}/${item.imgs[0].fs}`} alt={`${item.nombre_producto}`} style={{ width: '100%' }}></img>
+            <img src={`/images/productos/${item.foldersource}/${item.imgs[0].fs}`} alt={`${item.nombre_producto}`} ></img>
             <h2>{item.nombre_producto}</h2>
             <p className='price'>${item.precio}</p>
             <p> {onDescriptionShort(item.descripcion)}</p>

@@ -6,7 +6,7 @@ import createHistory from 'history/createBrowserHistory';
 import LandingPage from '../components/home/LandingPage';
 import CarritoAdmin from '../components/carrito/CarritoAdmin';
 import FormaPago from '../components/usuario/FormaPago';
-import PedidoRegistro from '../components/pedidos/PedidoRegistro';
+
 import PedidosAdmin from '../components/pedidos/PedidosAdmin';
 import ClienteInfo from '../components/usuario/ClienteInfo';
 
@@ -14,7 +14,7 @@ import ProductosLista from '../components/categorias/ProductosLista';
 
 import PoliticaPrivacidadPage from '../components/home/_PoliticaPrivacidadPage';
 import CondicionesServicioPage from '../components/home/_CondicionesServicioPage';
-
+import NotFoundPage from '../components/home/NotFound';
 
 export const history = createHistory();
 
@@ -30,6 +30,7 @@ const AppRouter = ()=> (
             <Route path="/politica-privacidad" component={PoliticaPrivacidadPage} exact={true} />
             <Route path="/condiciones-servicio" component={CondicionesServicioPage} exact={true} />
             <Route path="/categorias/:tipo" component={ProductosLista} exact={true} />
+            <Route component={NotFoundPage} />
         </Switch>
     </div>
 

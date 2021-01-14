@@ -1,0 +1,220 @@
+
+/* Clases de estilos para reutilizar*/
+.container {
+    max-width: 1500px; 
+    margin: 0 auto; // 0 para el top /botton y auto para el left-right
+    overflow: auto; // ayuda elimina la franja superior del elemento h1 definido en _base.scss (magin 10px)
+    padding: 0 40px // 0 para top/botton y 40px para left-right, para cuando hace angosta la pantalla, evita que se pegue el contenido a la izquierda
+    
+}
+
+.flexible { // convierte todos los elementos del .container en flex, para acomodar a gusto
+    display: flex;
+    justify-content: center; // centra todo horizontalmente
+    align-items: center; // para alinear verticalmente
+    height: 100%;
+}
+
+
+.cuadrilla {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px; // anteriormente se llamada grid-gap ahora se llama gap
+    justify-content: center; // alinea horizontalmente
+    align-items: center; // alinea verticalmente
+    height: 100%; // cuadrilla esta dentro de showcase, por ende, el height debe ocupar el 100% de showcase
+
+}
+
+.cuadrilla-3 {
+    grid-template-columns: repeat(3, 1fr);    
+}
+
+.pdfviewer {
+    width: 700px;
+    height: 700px;
+    margin: 10px 0 10px 0;
+}
+
+/* navbar */
+
+.navbar { // contenedor de las barra de navbar
+    background-color: $off-white; // fondo azul brillante
+    color: white; // letras blancas
+    height: 70px; // altura de 70 pixeles
+}
+
+
+.navbar ul {
+    display: flex; // los elementos del menu
+}
+.navbar a {
+    color: #333333;
+    padding: 10px;
+    margin: 0 5px;
+}
+.navbar a:hover {
+    border-bottom: 2px #333333 solid;
+}
+
+/* categorias */
+.categorias .card-categoria {
+    text-align: center;
+    margin: 18px 10px; // margen especifico para las cards
+    transition: transform 0.2s ease-in;
+    width: 300px;
+    height: auto;
+    
+}
+
+.categorias .flexible {
+    flex-wrap: wrap;
+}
+
+.categorias .card-categoria  h4{
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.categorias .card-categoria:hover {
+    transform: translateY(-10px);
+}
+
+
+
+/*centra el texto*/
+.text-center {
+    text-align: center;
+}
+
+/* Texto y font-sizes*/
+
+.text-primary {
+    color: $azul-brillante;
+}
+.text-secondary {
+    color: $azul-medio;
+}
+.text-light {
+    color: $gris-claro;
+}
+.text-dark {
+    color: $azul-oscuro;
+}
+
+.lead {
+    font-size: 20px;
+}
+.sm {
+    font-size: 1rem;
+}
+.md {
+    font-size: 2rem;
+}
+.lg {
+    font-size: 3rem;
+}
+.xl {
+    font-size: 4rem;
+}
+
+
+/* Definicion de margenes TOP y BOTTOM*/
+.my-1 { // margin aplicado en el stats
+    margin: 1rem 0;
+}
+.my-2 { // margin aplicado en el stats
+    margin: 1.5rem 0;
+}
+.my-3 { // margin aplicado en el stats
+    margin: 2rem 0;
+}
+.my-4 { // margin aplicado en el stats
+    margin: 3rem 0;
+}
+.my-5 { // margin aplicado en el stats
+    margin: 4rem 0;
+}
+
+
+/* Definicion de padding mismo numero que el margin anterior*/
+.py-1 { // padding aplicado en el stats
+    padding: 1rem 0;
+}
+.py-2 { // padding aplicado en el stats
+    padding: 1.5rem 0;
+}
+.py-3 { // padding aplicado en el stats
+    padding: 2rem 0;
+}
+.py-4 { // padding aplicado en el stats
+    padding: 3rem 0;
+}
+.py-5 { // padding aplicado en el stats
+    padding: 4rem 0;
+}
+
+/* Definicion de margenes  TODO ALREDEDOR*/
+.m-1 { // margin aplicado en el stats
+    margin: 1rem;
+}
+.m-2 { // margin aplicado en el stats
+    margin: 1.5rem;
+}
+.m-3 { // margin aplicado en el stats
+    margin: 2rem;
+}
+.m-4 { // margin aplicado en el stats
+    margin: 3rem;
+}
+.m-5 { // margin aplicado en el stats
+    margin: 4rem;
+}
+
+/* Definicion de padding  TODO ALREDEDOR*/
+.p-1 { // margin aplicado en el stats
+    padding: 1rem;
+}
+.p-2 { // padding aplicado en el stats
+    padding: 1.5rem;
+}
+.p-3 { // padding aplicado en el stats
+    padding: 2rem;
+}
+.p-4 { // padding aplicado en el stats
+    padding: 3rem;
+}
+.p-5 { // padding aplicado en el stats
+    padding: 4rem;
+}
+
+
+/* Background y color de botones*/
+.bg-primary,
+.btn-primary {
+    background: $azul-brillante;
+    color:white;
+    
+}
+
+.bg-secondary,
+.btn-secondary {
+    background: $azul-medio;
+    color:white;
+    
+}
+
+.bg-light,
+.btn-light {
+    background: $gris-claro;
+    color:white;
+    
+}
+
+.bg-dark,
+.btn-dark {
+    background: $azul-oscuro;
+    color:white;
+    
+}
+

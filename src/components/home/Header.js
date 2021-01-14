@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import BusquedaInput from './BusquedaInput';
-
+//import BusquedaInput from './BusquedaInput';
+import Navbar from './Navbar';
 
 const Header = () => {
 
@@ -12,15 +12,14 @@ const Header = () => {
                     <Link to="/">
                         <img src="/chiquititodetalles-logo.png" alt=''></img>
                     </Link>
-                    <div>
-                        <BusquedaInput />
-                    </div>
+                    <Navbar />
                     <Link to="/carrito">
                         <img src='/icons/carrito-de-compras.png' width="50" height="50"></img>
                     </Link>
                 </div>
 
             </div>
+            
 
         </header>
 

@@ -57,7 +57,7 @@ const CarritoAdmin = () => {
 
             { totales.total > 0 ?
                 <CarritoAdminTotales totales={totales} /> :
-                <h3>Aun no has agregado articulos a tu carrito, <Link to='/'>Regresar!  </Link></h3>}
+                <h3>Aun no has agregado articulos a tu carrito, <Link className='btn-primary' to='/'>Regresar!  </Link></h3>}
 
         </div>
         </div>

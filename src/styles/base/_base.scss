@@ -17,6 +17,15 @@ body {
 
 }
 
+a {
+    text-decoration: none;  
+    color: $gris-oscuro;
+}
+
+ul {
+    list-style-type: none;
+}
+
 button {
     cursor: pointer;
 }

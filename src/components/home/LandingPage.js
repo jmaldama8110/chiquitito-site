@@ -1,10 +1,11 @@
-import React, { useReducer, useEffect } from 'react';
-import {Link} from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Header from './Header';
 
 import BannerCarousel from './BannerCarousel';
 import CategoriasLista from '../categorias/CategoriasLista';
+import Footer from './Footer';
 
 
 export const LandingPage = () => {
@@ -13,12 +14,14 @@ export const LandingPage = () => {
         <div>
             <Header />
             <BannerCarousel />
-            <div className='row'>
-                <CategoriasLista />
+            <div className='categorias'>
+                <h2 className='text-center my-2'>Categorias</h2>
+                <div className='container flexible'>
+                    
+                    <CategoriasLista />
+                </div>
             </div>
-            <div className='contenido-centrado'>
-                <p>Leer <Link to='politica-privacidad'>Aquí</Link> las políticas de privacidad y <Link to='condiciones-servicio'>condiciones del servicio</Link> de chiquititodetalles.com </p>
-            </div>
+            <Footer />
         </div>
     );
 
