@@ -84,17 +84,17 @@ const CarritoAdmin = () => {
                                 <p>Selecciona Envio:</p>
                                 <input type="radio" id="fedex" name="envio" value="fedex" onClick={e => {
                                     setEnvioPor(e.target.value);
-                                    setPrecioEnvio(85);
-                                    setTotalMasEnvio(total + 85);
-                                    localStorage.setItem('delivery', JSON.stringify({ envioPor:'fedex', precioEnvio:'85' }))
-                                }} /><label for="fedex">Fedex ($85)</label><br />
+                                    setPrecioEnvio(175);
+                                    setTotalMasEnvio(total + 175);
+                                    localStorage.setItem('delivery', JSON.stringify({ envioPor:'fedex', precioEnvio:'175' }))
+                                }} /><label for="fedex">Fedex ($175)</label><br />
 
-                                <input type="radio" id="estafeta" name="envio" value="estafeta" onClick={e => {
+                                <input type="radio" id="redpack" name="envio" value="redpack" onClick={e => {
                                     setEnvioPor(e.target.value);
-                                    setPrecioEnvio(65);
-                                    setTotalMasEnvio(total + 65);
-                                    localStorage.setItem('delivery', JSON.stringify({ envioPor:'estafeta', precioEnvio:'65' }))
-                                }} /><label for="estafeta">Estafeta ($65)</label><br />
+                                    setPrecioEnvio(128);
+                                    setTotalMasEnvio(total + 128);
+                                    localStorage.setItem('delivery', JSON.stringify({ envioPor:'estafeta', precioEnvio:'128' }))
+                                }} /><label for="estafeta">Redpack ($128)</label><br />
 
                                 <input type="radio" id="local" name="envio" value="local" onClick={e => {
                                     setEnvioPor(e.target.value);
