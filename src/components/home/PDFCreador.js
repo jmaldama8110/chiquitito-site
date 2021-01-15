@@ -79,7 +79,8 @@ const PDFCreador = ({ data }) => {
                         <Text style={styles.subtitle}>Numero contacto:{data.numero_celular}</Text>
                         <Text style={styles.subtitle}>Medio de pago: {data.metodopago}</Text>
                         <Text style={styles.subtitle}>Cuenta / Tarjeta: {data.cuentaTDD}</Text>
-                        <Text style={styles.subtitle}>Importe: ${data.total} pesos MXN</Text>
+                        <Text style={styles.subtitle}>Importe: ${data.totalMasEnvio} pesos MXN</Text>
+                        <Text style={styles.subtitle}>Costo envio: ${data.precioEnvio} pesos MXN</Text>
                         <Text style={styles.subtitle}>Pago esperado antes del: {data.diaPago}</Text>
                         <Text style={styles.subtitle}>Envio por: {data.envioPor}</Text>
                         <Text style={[styles.text, { textAlign: 'center' }]}

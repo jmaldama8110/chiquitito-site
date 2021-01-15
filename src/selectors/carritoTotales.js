@@ -5,13 +5,9 @@ export default (articulosArray) => {
     
     articulosArray.forEach( (item) => suma = suma + parseFloat(item.subtotal) );
 
-    const envio = suma < 1800 && suma > 0 ? 145 : 0
-
     return {
         conteo,
-        total: suma,
-        totalMasEnvio : suma + envio,
-        envio
+        total: suma
     }
 
 }

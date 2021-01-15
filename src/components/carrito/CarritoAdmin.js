@@ -6,60 +6,114 @@ import CarritoLista from '../carrito/CarritoLista';
 import totalCarrito from '../../selectors/carritoTotales';
 
 import carritoContext from '../../context/carritoContext';
-import CarritoAdminTotales from './CarritoAdminTotales';
+
 import Header from '../home/Header';
 
 const CarritoAdmin = () => {
 
+
     const [carrito, dispatchCarrito] = useReducer(carritoReducer, []);
-    const [totales, setTotales] = useState({})
+    const [envioPor, setEnvioPor] = useState('');
+    const [precioEnvio, setPrecioEnvio] = useState(0);
+    const [total, setTotal] = useState(0);
+    const [totalMasEnvio, setTotalMasEnvio] = useState(0)
+
 
 
     useEffect(() => {
         const localData = JSON.parse(localStorage.getItem('carrito'));
+        const localEnvio = JSON.parse(localStorage.getItem('delivery'));
+
 
         if (localData) {
-            setTotales(totalCarrito(localData));
+            const totales = totalCarrito(localData);
+            setTotal(totales.total);
             dispatchCarrito({ type: 'POPULATE_CARRITO', carrito: localData });
         }
+
+        if (localEnvio) {
+            setEnvioPor(localEnvio.envioPor);
+            setPrecioEnvio(localEnvio.precioEnvio)
+        }
+
+
     }, []);
 
 
-    useEffect(() => {
+    useEffect(() => { // cuando se actualiza la lista de articulos
 
         localStorage.setItem('carrito', JSON.stringify(carrito));
 
-        setTotales(totalCarrito(carrito));
+        const totales = totalCarrito(carrito);
+        setTotal(parseFloat(totales.total));
+        setTotalMasEnvio(parseFloat(totales.total) + parseFloat(precioEnvio));
 
     }, [carrito]);
+
+
 
     return (
         <div>
             <Header />
-        <div className='contenido-centrado'>
-            <carritoContext.Provider value={{ carrito, dispatchCarrito }}>
+            <div className='contenido-centrado'>
+                <carritoContext.Provider value={{ carrito, dispatchCarrito }}>
 
-                <h3>Mi carrito</h3>
-                <table>
-                    <tr>
-                        <th></th>
-                        <th>Articulo</th>
-                        <th>Color/estampado</th>
-                        <th>Precio</th>
-                        <th>Cantidad</th>
-                        <th>Unidad</th>
-                        <th>Total</th>
-                    </tr>
-                    <CarritoLista />
-                </table>
+                    <h3>Mi carrito</h3>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>Articulo</th>
+                            <th>Color/estampado</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Unidad</th>
+                            <th>Total</th>
+                        </tr>
+                        <CarritoLista />
+                    </table>
 
-            </carritoContext.Provider>
+                </carritoContext.Provider>
 
-            { totales.total > 0 ?
-                <CarritoAdminTotales totales={totales} /> :
-                <h3>Aun no has agregado articulos a tu carrito, <Link className='btn-primary' to='/'>Regresar!  </Link></h3>}
+                {
+                    total > 0
+                        ? /// muestra el resumen de total //////
+                        <div>
+                            <h2>Total {carrito.length} articulos = ${total}
+                                + {envioPor} ({precioEnvio}) = ${totalMasEnvio}</h2>
+                            <div>
+                                <p>Selecciona Envio:</p>
+                                <input type="radio" id="fedex" name="envio" value="fedex" onClick={e => {
+                                    setEnvioPor(e.target.value);
+                                    setPrecioEnvio(85);
+                                    setTotalMasEnvio(total + 85);
+                                    localStorage.setItem('delivery', JSON.stringify({ envioPor:'fedex', precioEnvio:'85' }))
+                                }} /><label for="fedex">Fedex ($85)</label><br />
 
-        </div>
+                                <input type="radio" id="estafeta" name="envio" value="estafeta" onClick={e => {
+                                    setEnvioPor(e.target.value);
+                                    setPrecioEnvio(65);
+                                    setTotalMasEnvio(total + 65);
+                                    localStorage.setItem('delivery', JSON.stringify({ envioPor:'estafeta', precioEnvio:'65' }))
+                                }} /><label for="estafeta">Estafeta ($65)</label><br />
+
+                                <input type="radio" id="local" name="envio" value="local" onClick={e => {
+                                    setEnvioPor(e.target.value);
+                                    setPrecioEnvio(0);
+                                    setTotalMasEnvio(total);
+                                    localStorage.setItem('delivery', JSON.stringify({ envioPor:'local', precioEnvio:'0' }))
+                                }} /><label for="local">Envio Local</label>
+
+                            </div>
+                            <p></p>
+                            <Link to='/'>Continuar comprando</Link><p></p>
+                            <Link to="/pedidos">Finalizar compra</Link>
+                        </div> /////////////////////////////////////////////
+
+                        :
+                        <h3>Aun no has agregado articulos a tu carrito, <Link to='/'>Regresar!  </Link></h3>
+                }
+
+            </div>
         </div>
     );
 

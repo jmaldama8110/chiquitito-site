@@ -21,8 +21,10 @@ const ClienteInfo = () => {
     const [registrado, setRegistrado] = useState(false);
     const [keyref, setKeyRef] = useState('');
 
-    const [totales, setTotales] = useState({})
     const [carrito, setCarrito] = useState([]);
+    const [envioPor, setEnvioPor] = useState('');
+    const [precioEnvio, setPrecioEnvio] = useState(0);
+    const [total, setTotal] = useState(0);
 
     const { userData } = useContext(authContext);
 
@@ -33,10 +35,15 @@ const ClienteInfo = () => {
 
         /////////////// carga los datos del carrito de localstorage //////////////////
         const localData = JSON.parse(localStorage.getItem('carrito'));
+        const localEnvio = JSON.parse(localStorage.getItem('delivery'));
         //////////////////////////////////////////////////////////////////////////////
         if (localData) {
             setCarrito(localData);
-            setTotales(totalCarrito(localData));
+            setTotal( totalCarrito(localData).total );
+        }
+        if (localEnvio) {
+            setEnvioPor(localEnvio.envioPor);
+            setPrecioEnvio(localEnvio.precioEnvio);
         }
         //////////////////////////////////////////////////////////////////////////////
 
@@ -109,9 +116,11 @@ const ClienteInfo = () => {
                 const pedidoDb = {
                     usuario_ref: usuarioNuevoRef.key,
                     estatus: 'A',
-                    envio: totales.envio,
+                    total,
+                    envio_por: envioPor,
+                    precio_envio: precioEnvio,
+                    total_mas_envio: parseFloat(total) +  parseFloat(precioEnvio),
                     fecha_pedido: Date.now(),
-                    total: totales.totalMasEnvio,
                     ...usuarioDb
                 }
                 const pedidosNodoRef = db.ref('pedidos');
@@ -120,7 +129,7 @@ const ClienteInfo = () => {
                     ...pedidoDb
                 }).then(() => {
 
-                    carrito.forEach( item => {
+                    carrito.forEach(item => {
                         db.ref('pedido_items').push({
                             pedido_ref: pedidoNuevoRef.key,
                             ...item
@@ -140,9 +149,11 @@ const ClienteInfo = () => {
             const pedidoDb = {
                 usuario_ref: keyref,
                 estatus: 'A',
-                envio: totales.envio,
+                total,
+                envio_por: envioPor,
+                precio_envio: precioEnvio,
+                total_mas_envio: parseFloat(total) +  parseFloat(precioEnvio),
                 fecha_pedido: Date.now(),
-                total: totales.totalMasEnvio,
                 ...usuarioDb
             }
 
@@ -155,7 +166,7 @@ const ClienteInfo = () => {
                     ...pedidoDb
                 }).then(() => {
 
-                    carrito.forEach( item => {
+                    carrito.forEach(item => {
                         db.ref('pedido_items').push({
                             pedido_ref: pedidoNuevoRef.key,
                             ...item

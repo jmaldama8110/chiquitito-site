@@ -12,10 +12,12 @@ import db from '../../firebase/firebase';
 
 const FormaPago = ({ match }) => {
 
-    const [total, setTotal] = useState('0');
+    const [total, setTotal] = useState('');
     const [nombres, setNombre] = useState('');
     const [direccion, setDireccion] = useState('');
     const [envioPor, setEnvioPor] = useState('');
+    const [precioEnvio, setPrecioEnvio] = useState('');
+    const [totalMasEnvio, setTotalMasEnvio] = useState('');
     const [numero_celular, setNumeroCelular] = useState('');
 
     const [pedidoItems, setPedidoItems] = useState([]);
@@ -39,9 +41,11 @@ const FormaPago = ({ match }) => {
 
             const pedidoSnapshot = snapshot.val();
             setTotal(pedidoSnapshot.total);
-            setNombre(pedidoSnapshot.nombres);
+            setTotalMasEnvio(pedidoSnapshot.total_mas_envio);
+            setNombre(pedidoSnapshot.nombres +' '+pedidoSnapshot.apellidos);
             setDireccion( `${pedidoSnapshot.direccion}, ${pedidoSnapshot.municipio}, CP:${pedidoSnapshot.codigo_postal} - ${pedidoSnapshot.estado}` );
-            setEnvioPor('fedex');
+            setEnvioPor(pedidoSnapshot.envio_por);
+            setPrecioEnvio(pedidoSnapshot.precio_envio)
             setNumeroCelular(`${pedidoSnapshot.numero_celular}`)
 
             /* Recupera los items del pedido indicado */
@@ -166,7 +170,7 @@ const FormaPago = ({ match }) => {
 
 
                         <div id="oxxo" className="tabulador-content">
-                            <h1>Importe a depositar: ${total}</h1>
+                            <h1>Importe a depositar: ${totalMasEnvio}</h1>
                             <p>* Tienda oxxo cobrará una comision de 9.0 pesos más IVA en cada deposito</p>
                             <h2>{cuentaTDD}</h2>
                             <h4>Titular: {titular}</h4>
@@ -174,7 +178,7 @@ const FormaPago = ({ match }) => {
                         </div>
 
                         <div id="transferencia" className="tabulador-content">
-                            <h1>Importe a transferir: ${total}</h1>
+                            <h1>Importe a transferir: {totalMasEnvio}</h1>
                             <img src='/images/medios-pago/bbva-logo.png'></img>
                             <h2>{cuentaTDD}</h2>
                             <h2>Titular: {titular}</h2>
@@ -205,6 +209,8 @@ const FormaPago = ({ match }) => {
             metodopago,
             direccion,
             envioPor,
+            precioEnvio,
+            totalMasEnvio,
             numero_celular,
             titular,
             cuentaTDD,
@@ -216,11 +222,11 @@ const FormaPago = ({ match }) => {
                 <Header />
                 <div className='container flexible'>
                     <PDFCreador data={resumen} />
-                    <Link to="/">
-                        <p>Regresar a la tienda</p>
-                    </Link>
-
                 </div>
+                <Link to="/">
+                <p>Regresar a la tienda</p>
+            </Link>
+            
             </div>
         );
     }

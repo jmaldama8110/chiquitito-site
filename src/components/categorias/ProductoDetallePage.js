@@ -110,9 +110,15 @@ const ProductoDetallePage = ({ subitem, cerrarModal }) => {
         }
 
         // Agrega articulo al array y guarda en el local storage
-        const nuevoArray = [...originalArray, articuloAdd]
+        let nuevoArray = [];
+        if( originalArray ){
+            nuevoArray = [...originalArray,articuloAdd]
+        }
+        else {
+            nuevoArray = [articuloAdd]
+        }
+        
         localStorage.setItem('carrito', JSON.stringify(nuevoArray));
-
         setAlcarrito(true)
 
     }
