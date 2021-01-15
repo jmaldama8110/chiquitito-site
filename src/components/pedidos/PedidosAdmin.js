@@ -89,8 +89,8 @@ const PedidosAdmin = () => {
 
                                     <h1>¿Eres tu?</h1>
                                     <PerfilChip /><br />
-                                    <p>Si no eres tu, puedes cerrar sesion <Link onClick={cerrarSesion}> Aqui!</Link> </p>
-                                    <Link to='/carrito'>Regresar al carrito</Link>
+                                    <p>Si no eres tu, puedes cerrar sesion <Link onClick={cerrarSesion} className='cerrarsesion'> Aqui!</Link> </p>
+                                    <Link to='/carrito' className='btn btn-secondary'>Regresar al carrito</Link>
                                     <div>
                                         <ClienteInfo />
                                     </div>
@@ -98,7 +98,7 @@ const PedidosAdmin = () => {
                                 :
                                 <div>
                                     <p>No conectado, regresa de nuevo al carrito e intantelo nuevamente!</p>
-                                    <Link to='/carrito'>Regresar al carrito</Link>
+                                    <Link to='/carrito' className='btn btn-secondary'>Regresar al carrito</Link>
                                 </div>
 
                             }

@@ -105,12 +105,15 @@ const CarritoAdmin = () => {
 
                             </div>
                             <p></p>
-                            <Link to='/'>Continuar comprando</Link><p></p>
-                            <Link to="/pedidos">Finalizar compra</Link>
+                            <Link to="/pedidos" className='btn btn-primary'>Finalizar compra</Link><p></p>
+                            <Link to='/' className='btn btn-dark'>Continuar comprando</Link>
                         </div> /////////////////////////////////////////////
 
                         :
-                        <h3>Aun no has agregado articulos a tu carrito, <Link to='/'>Regresar!  </Link></h3>
+                        <div>
+                            <p>Aun no has agregado articulos a tu carrito...</p>
+                            <Link to='/' className='btn btn-secondary'>Continuar comprando</Link>
+                        </div>
                 }
 
             </div>

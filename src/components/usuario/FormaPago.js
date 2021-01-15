@@ -160,7 +160,7 @@ const FormaPago = ({ match }) => {
                     <div className='contenido-centrado'>
 
                         <h1>Elige una forma de pago</h1>
-                        <Link onClick={onRegistrarPedido}>Finalizar</Link>
+                        <Link onClick={onRegistrarPedido} className='btn btn-primary'>Finalizar</Link><p></p>
 
                         <div className="tabulador">
                             <button className="tabuladorlinks" onClick={(event) => verTabulador(event, 'oxxo')}>Pago en OXXO</button>
@@ -223,9 +223,8 @@ const FormaPago = ({ match }) => {
                 <div className='container flexible'>
                     <PDFCreador data={resumen} />
                 </div>
-                <Link to="/">
-                <p>Regresar a la tienda</p>
-            </Link>
+                <p></p>
+                <Link to="/" className='btn btn-secondary'>Regresar a la tienda</Link>
             
             </div>
         );

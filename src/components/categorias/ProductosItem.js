@@ -2,11 +2,8 @@ import React, { useEffect } from 'react';
 import ProductoDetallePage from '../../components/categorias/ProductoDetallePage';
 
 
-
 const ProductosItem = ({ item }) => {
 
-    // const [precioLista, setPrecioLista] = useState('');
-    // const [cantidad, setCantidad] = useState('');
 
     useEffect(() => {
         window.addEventListener('click', onSalirConClicWindow);
@@ -46,8 +43,8 @@ const ProductosItem = ({ item }) => {
             <img src={`/images/productos/${item.foldersource}/${item.imgs[0].fs}`} alt={`${item.nombre_producto}`} ></img>
             <h2>{item.nombre_producto}</h2>
             <p className='price'>${item.precio}</p>
+            <button onClick={onModalOpen} className='btn btn-primary'>Ver mas...</button>
             <p> {onDescriptionShort(item.descripcion)}</p>
-            <button onClick={onModalOpen}>Ver mas...</button>
 
             <div id={`${item.producto_id}myModal`} className="modal">
 

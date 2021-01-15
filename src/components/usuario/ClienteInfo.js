@@ -216,7 +216,7 @@ const ClienteInfo = () => {
                                 <label>Numero de celular</label>
                                 <input type="text" placeholder="Telefono Celular" defaultValue={numero_celular} required onChange={(e) => setNumeroCelular(e.target.value)}></input>
 
-                                <input type="submit" value="Continuar" />
+                                <input className= 'btn btn-primary' type="submit" value="Continuar" />
 
                             </form>
 

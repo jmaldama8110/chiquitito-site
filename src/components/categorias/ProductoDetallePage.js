@@ -133,7 +133,7 @@ const ProductoDetallePage = ({ subitem, cerrarModal }) => {
 
                     <div className='contenedor-tab'>
                         <div id={`${subitem.producto_id}textoImg`}> </div>
-                        <img id={`${subitem.producto_id}expandedImg`} style={{ width: '100%' }} />
+                        <img id={`${subitem.producto_id}expandedImg`}  />
 
                     </div>
 
@@ -170,7 +170,7 @@ const ProductoDetallePage = ({ subitem, cerrarModal }) => {
                 </input>
 
                 <p>{ alCarrito  ? <Alertamsg mensaje='Has agregado este articulo al carrito!' tipo='green' /> 
-                                :<button onClick={addArticuloCarrito}>Al Carrito</button>  }</p>
+                                :<button onClick={addArticuloCarrito} className='btn btn-secondary'>Enviar al Carrito</button>  }</p>
 
             </div>
         </div>

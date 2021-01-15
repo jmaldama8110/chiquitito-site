@@ -7,10 +7,10 @@ const CategoriasItem = ({ item }) => {
         <div className='card-categoria'>
             <Link to={`categorias/${item.tipo}`}>
                 <img src={`images/${item.ruta}`} alt=''></img>
-                <h1>{item.nombre}</h1>
-                <p>{item.descripcion}</p>
             </Link>
-        </div>
+            <h1>{item.nombre}</h1>
+            <p>{item.descripcion}</p>
+    </div>
     );
 }
 
