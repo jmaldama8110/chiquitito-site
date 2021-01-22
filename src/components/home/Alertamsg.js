@@ -7,13 +7,21 @@ const Alertamsg = ({ mensaje, tipo }) => {
         const divParent = e.target.parentElement;
         divParent.style.opacity = '0';
         
-        setTimeout(() => divParent.style.display = 'none', 600);
+        setTimeout( () => divParent.style.display = 'none', 600);
 
     }
 
     useEffect( ()=>{
+
         const divParent = document.getElementById('02029d039j20d');
         divParent.style.backgroundColor = tipo;
+
+        setTimeout( ()=> {
+            divParent.style.opacity = '0';        
+            setTimeout( () => divParent.style.display = 'none', 600);    
+        },
+        1400)
+        
 
     },[]);
 

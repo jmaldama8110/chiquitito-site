@@ -223,8 +223,6 @@ const FormaPago = ({ match }) => {
                 <div className='container flexible'>
                     <PDFCreador data={resumen} />
                 </div>
-                <p></p>
-                <Link to="/" className='btn btn-secondary'>Regresar a la tienda</Link>
             
             </div>
         );

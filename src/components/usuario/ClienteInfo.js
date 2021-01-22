@@ -18,6 +18,7 @@ const ClienteInfo = () => {
     const [estado, setEstado] = useState('');
     const [municipio, setMunicipio] = useState('');
     const [numero_celular, setNumeroCelular] = useState('');
+    const [correo_electronico, setCorreo] = useState('');
     const [registrado, setRegistrado] = useState(false);
     const [keyref, setKeyRef] = useState('');
 
@@ -75,6 +76,7 @@ const ClienteInfo = () => {
                     setMunicipio(usuarioDb[0].municipio);
                     setEstado(usuarioDb[0].estado);
                     setNumeroCelular(usuarioDb[0].numero_celular);
+                    setCorreo(usuarioDb[0].correo_electronico);
                     setKeyRef(usuarioDb[0].keyref);
                     setRegistrado(true);
                 } else {
@@ -103,6 +105,7 @@ const ClienteInfo = () => {
             estado,
             municipio,
             numero_celular,
+            correo_electronico,
             usuario_facebook_id: userData.id
         }
 
@@ -212,6 +215,9 @@ const ClienteInfo = () => {
 
                                 <label>Municipio o Ciudad</label>
                                 <input type='text' id='municipioId' placeholder='Municipio/Ciudad' defaultValue={municipio} required onChange={(e) => setMunicipio(e.target.value)}></input>
+
+                                <label>Correo electronico</label>
+                                <input type="text" placeholder="Correo electronico" defaultValue={correo_electronico} required onChange={(e) => setCorreo(e.target.value)}></input>
 
                                 <label>Numero de celular</label>
                                 <input type="text" placeholder="Telefono Celular" defaultValue={numero_celular} required onChange={(e) => setNumeroCelular(e.target.value)}></input>

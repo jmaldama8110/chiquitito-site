@@ -78,8 +78,10 @@ const CarritoAdmin = () => {
                     total > 0
                         ? /// muestra el resumen de total //////
                         <div>
-                            <h2>Total {carrito.length} articulos = ${total}
-                                + {envioPor} ({precioEnvio}) = ${totalMasEnvio}</h2>
+                            <h2>Total {carrito.length} articulos 
+                                { envioPor!=='local' ? ` = $${total} + ${envioPor}(${precioEnvio}) = `  : ' = '}
+                                
+                                ${totalMasEnvio}</h2>
                             <div>
                                 <p>Selecciona Envio:</p>
                                 <input type="radio" id="fedex" name="envio" value="fedex" onClick={e => {
@@ -101,7 +103,7 @@ const CarritoAdmin = () => {
                                     setPrecioEnvio(0);
                                     setTotalMasEnvio(total);
                                     localStorage.setItem('delivery', JSON.stringify({ envioPor:'local', precioEnvio:'0' }))
-                                }} /><label for="local">Envio Local</label>
+                                }} /><label for="local">Envio Local { envioPor==='local' ? `(* Lo paga el cliente al recibir el producto +/- $45 pesos en promedio...)`:``}</label>
 
                             </div>
                             <p></p>
