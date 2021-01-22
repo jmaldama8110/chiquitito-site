@@ -5,10 +5,10 @@ import { Page, Text, Image, View, Document, Font, StyleSheet } from '@react-pdf/
 const PDFCreador = ({ data }) => {
 
 
-    Font.register({
-        family: 'Oswald',
-        src: 'https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf'
-    });
+    // Font.register({
+    //     family: 'Yusei Magic',
+    //     src: 'fonts/Yusei_Magic/YuseiMagic-Regular.ttf'
+    // });
 
     const styles = StyleSheet.create({
         body: {
@@ -17,9 +17,9 @@ const PDFCreador = ({ data }) => {
             paddingHorizontal: 35,
         },
         title: {
-            fontSize: 24,
+            fontSize: 18,
             textAlign: 'center',
-            fontFamily: 'Oswald'
+//            fontFamily: 'Yusei Magic'
         },
         author: {
             fontSize: 12,
@@ -27,19 +27,19 @@ const PDFCreador = ({ data }) => {
             marginBottom: 40,
         },
         subtitle: {
-            fontSize: 14,
+            fontSize: 12,
             margin: 8,
             marginLeft: 32,
-            fontFamily: 'Oswald',
-            lineHeight: 0.1,
+//            fontFamily: 'Yusei Magic',
+            lineHeight: 0.5,
             fontWeight: 100
         },
         text: {
             margin: 8,
             marginLeft: 32,
-            fontSize: 18,
+            fontSize: 12,
             textAlign: 'left',
-            fontFamily: 'Oswald',
+//            fontFamily: 'Yusei Magic',
             lineHeight: 0.1,
         },
         image: {
@@ -75,8 +75,8 @@ const PDFCreador = ({ data }) => {
                         <Image style={styles.image} src='/favicon.png' />
                         <Text style={styles.title}>Orden No: {data.pedidoIdShort}</Text>
                         <Text style={styles.header}>ChiquititoDetalles</Text>
-                        <Text style={styles.subtitle}>Para:{data.nombres}</Text>
-                        <Text style={styles.subtitle}>Numero contacto:{data.numero_celular}</Text>
+                        <Text style={styles.subtitle}>Para: {data.nombres}</Text>
+                        <Text style={styles.subtitle}>Numero contacto: {data.numero_celular}</Text>
                         <Text style={styles.subtitle}>Medio de pago: {data.metodopago}</Text>
                         <Text style={styles.subtitle}>Cuenta / Tarjeta: {data.cuentaTDD}</Text>
                         <Text style={styles.subtitle}>Importe: ${data.totalMasEnvio} pesos MXN</Text>

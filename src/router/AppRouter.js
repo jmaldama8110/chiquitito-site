@@ -14,6 +14,8 @@ import ProductosLista from '../components/categorias/ProductosLista';
 
 import PoliticaPrivacidadPage from '../components/home/_PoliticaPrivacidadPage';
 import CondicionesServicioPage from '../components/home/_CondicionesServicioPage';
+import Contacto from '../components/home/Contacto';
+
 import NotFoundPage from '../components/home/NotFound';
 
 export const history = createHistory();
@@ -29,6 +31,7 @@ const AppRouter = ()=> (
             <Route path="/formapago/:pedidoid" component={FormaPago} exact={true} />
             <Route path="/politica-privacidad" component={PoliticaPrivacidadPage} exact={true} />
             <Route path="/condiciones-servicio" component={CondicionesServicioPage} exact={true} />
+            <Route path="/contacto" component={Contacto} exact={true} />
             <Route path="/categorias/:tipo" component={ProductosLista} exact={true} />
             <Route component={NotFoundPage} />
         </Switch>

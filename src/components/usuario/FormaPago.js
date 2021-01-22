@@ -5,6 +5,7 @@ import getHoyMasDosDias from "../../utils/addDiasFecha";
 
 import Header from '../home/Header';
 import PDFCreador from '../../components/home/PDFCreador';
+import OrdenFinal from '../../components/home/OrdenFinal';
 import Loader from '../home/Loader';
 
 import db from '../../firebase/firebase';
@@ -219,9 +220,9 @@ const FormaPago = ({ match }) => {
 
         return (
             <div>
-                <Header />
+                
                 <div className='container flexible'>
-                    <PDFCreador data={resumen} />
+                    <OrdenFinal data={resumen} />
                 </div>
             
             </div>
