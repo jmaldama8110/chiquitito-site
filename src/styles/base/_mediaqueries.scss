@@ -1,23 +1,21 @@
-
 // media query place at the end of the last imported file
+
 /* Tablets o menos resolucion */
-@media( max-width: 768px){
+
+@media( max-width: 768px) {
     .cuadrilla,
     .showcase .cuadrilla,
     .stats .cuadrilla,
     .cli .cuadrilla,
     .cloud .cuadrilla,
     .features-main .cuadrilla,
-    .docs-main .cuadrilla
-     {
+    .docs-main .cuadrilla {
         grid-template-columns: 1fr;
         grid-template-rows: 1fr;
     }
-
     .navbar {
         height: 80px;
     }
-
     .showcase {
         height: auto;
     }
@@ -25,57 +23,53 @@
         text-align: center;
         margin-top: 40px;
     }
-
     .showcase-form {
         justify-self: center;
         margin: auto;
     }
-
-    .cli .cuadrilla > *:first-child { // afecta al primer elemento dentro del cli / cuadrilla
+    .cli .cuadrilla>*:first-child {
+        // afecta al primer elemento dentro del cli / cuadrilla
         grid-column: 1;
         grid-row: 1;
     }
-
     .features-head,
     .features-subhead,
     .docs-head {
         text-align: center;
     }
-
     .features-head img,
     .features-subhead img,
     .docs-head img {
         justify-self: center;
     }
-    
-    .features-main .cuadrilla > *:first-child,
-    .features-main .cuadrilla > *:nth-child(2) {
+    .features-main .cuadrilla>*:first-child,
+    .features-main .cuadrilla>*:nth-child(2) {
         grid-column: 1;
     }
-
 }
 
+
 /* Mobile */
+
 @media (max-width: 500px) {
     .navbar {
-        height: 200px;
+        height: 250px;
     }
-
     .navbar a {
         padding: 0;
     }
     .navbar .flexible {
         flex-direction: column; // colocal todo debajo, en vez de a lo ancho
     }
-
     .navbar ul {
         padding: 10px;
-        background-color: rgba(0, 0 ,0, 0.1 );
-        }
+        background-color: rgba(0, 0, 0, 0.1);
+    }
     .showcase-form {
         width: 300px;
     }
 }
+
 
 /* Animations */
 
@@ -88,7 +82,7 @@
     }
 }
 
-@keyframes deslizarDesdeDerecha{
+@keyframes deslizarDesdeDerecha {
     0% {
         transform: translateX(100%);
     }
@@ -97,8 +91,7 @@
     }
 }
 
-
-@keyframes deslizarDesdeArriba{
+@keyframes deslizarDesdeArriba {
     0% {
         transform: translateY(-100%);
     }
@@ -106,7 +99,8 @@
         transform: translateX(0);
     }
 }
-@keyframes deslizarDesdeAbajo{
+
+@keyframes deslizarDesdeAbajo {
     0% {
         transform: translateY(100%);
     }

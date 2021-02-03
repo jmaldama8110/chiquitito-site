@@ -2,44 +2,43 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
-  integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
-  crossorigin="anonymous" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Chiquitito detalles</title>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chiquitito detalles</title>
 </head>
 
 <body>
-  <script>
-    const appId = '1831372963679416';
-    const apiVersion = 'v9.0';
+    <script>
+        const appId = '1831372963679416';
+        const apiVersion = 'v9.0';
 
-    window.fbAsyncInit = function () {
-      FB.init({
-        appId: appId,
-        cookie: true,
-        xfbml: true,
-        version: apiVersion
-      });
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: appId,
+                cookie: true,
+                xfbml: true,
+                version: apiVersion
+            });
 
-      FB.AppEvents.logPageView();
+            FB.AppEvents.logPageView();
 
-    };
+        };
 
-    (function (d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) { return; }
-      js = d.createElement(s); js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
 
-  </script>
-
- 
-  <div id="root"></div>
+    <div id="root"></div>
 </body>
 
 </html>
