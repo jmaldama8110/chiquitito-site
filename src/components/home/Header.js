@@ -4,10 +4,6 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
 
-    const onPaypalClic = () =>{
-        window.open('/paypal.html');
-    }
-
     return (
         <div className='navbar'>
             <div className='container flexible'>
@@ -28,9 +24,6 @@ const Header = () => {
                         <li><Link to='/contacto'>Ubicación</Link></li>
                     </ul>
                 </div>
-                <Link>
-                    <img src="/images/medios-pago/paypal.png" alt="paypa-logo"  onClick={onPaypalClic}></img>
-                </Link>
                 <Link to='/carrito'>
                     <img src='/icons/carrito-de-compras.png' alt="carrito" width="40" height="40"></img>
                 </Link>

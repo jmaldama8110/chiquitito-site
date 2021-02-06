@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import getHoyMasDosDias from "../../utils/addDiasFecha";
 
 import Header from '../home/Header';
-import PDFCreador from '../../components/home/PDFCreador';
+import Paypal from '../payments/Paypal'; 
 import OrdenFinal from '../../components/home/OrdenFinal';
 import Loader from '../home/Loader';
 
@@ -18,6 +18,7 @@ const FormaPago = ({ match }) => {
     const [direccion, setDireccion] = useState('');
     const [envioPor, setEnvioPor] = useState('');
     const [precioEnvio, setPrecioEnvio] = useState('');
+    const [cobroInternacional, setCobroInt] = useState('');
     const [totalMasEnvio, setTotalMasEnvio] = useState('');
     const [numero_celular, setNumeroCelular] = useState('');
 
@@ -46,7 +47,8 @@ const FormaPago = ({ match }) => {
             setNombre(pedidoSnapshot.nombres +' '+pedidoSnapshot.apellidos);
             setDireccion( `${pedidoSnapshot.direccion}, ${pedidoSnapshot.municipio}, CP:${pedidoSnapshot.codigo_postal} - ${pedidoSnapshot.estado}` );
             setEnvioPor(pedidoSnapshot.envio_por);
-            setPrecioEnvio(pedidoSnapshot.precio_envio)
+            setPrecioEnvio(pedidoSnapshot.precio_envio);
+            setCobroInt(pedidoSnapshot.cobroInternacional);
             setNumeroCelular(`${pedidoSnapshot.numero_celular}`)
 
             /* Recupera los items del pedido indicado */
@@ -81,12 +83,10 @@ const FormaPago = ({ match }) => {
 
             setLoading(false);
 
-            const defaultTab = document.getElementById('oxxo');
+            const defaultTab = document.getElementById('paypal');
             defaultTab.style.display = "block";
             defaultTab.className += " active";
-            setMetodoPago('oxxo')
-            setTitular('Cyntia Reyes Hartmann');
-            setCuentaTDD('5204-1671-3054-9595')
+            setMetodoPago('paypal')
 
         });
 
@@ -161,17 +161,27 @@ const FormaPago = ({ match }) => {
                     <div className='contenido-centrado'>
 
                         <h1>Elige una forma de pago</h1>
-                        <Link onClick={onRegistrarPedido} className='btn btn-primary'>Finalizar</Link><p></p>
 
                         <div className="tabulador">
+                            <button className="tabuladorlinks" onClick={(event) => verTabulador(event, 'paypal')}>Paypal</button>
                             <button className="tabuladorlinks" onClick={(event) => verTabulador(event, 'oxxo')}>Pago en OXXO</button>
                             <button className="tabuladorlinks" onClick={(event) => verTabulador(event, 'transferencia')}>Transferencia bancaria</button>
                             <button className="tabuladorlinks" onClick={(event) => verTabulador(event, 'efectivo')}>Efectivo</button>
                         </div>
 
+                        <div id="paypal" className="tabulador-content">
+                            <h2>Paga con Paypal, Tarjeta de crédito o Debito</h2>
+                            <h2>Importe de articulos: ${totalMasEnvio}</h2>
+                            { cobroInternacional > 0 ? <p>Costo de Envio internacional = ${cobroInternacional}</p>: <p></p> }
+                            
+
+                            <Paypal importe={ totalMasEnvio } onApproval={ setMostrarConfirmacion }/>
+
+                        </div>
 
                         <div id="oxxo" className="tabulador-content">
-                            <h1>Importe a depositar: ${totalMasEnvio}</h1>
+                            <h2>Importe a depositar: ${totalMasEnvio}</h2>
+                            <Link onClick={onRegistrarPedido} className='btn btn-primary'>Elegir</Link><p></p>
                             <p>* Tienda oxxo cobrará una comision de 9.0 pesos más IVA en cada deposito</p>
                             <h2>{cuentaTDD}</h2>
                             <h4>Titular: {titular}</h4>
@@ -179,8 +189,8 @@ const FormaPago = ({ match }) => {
                         </div>
 
                         <div id="transferencia" className="tabulador-content">
-                            <h1>Importe a transferir: {totalMasEnvio}</h1>
-                            <img src='/images/medios-pago/bbva-logo.png'></img>
+                            <h2>Importe a transferir: ${totalMasEnvio}</h2>
+                            <Link onClick={onRegistrarPedido} className='btn btn-primary'>Elegir</Link><p></p>
                             <h2>{cuentaTDD}</h2>
                             <h2>Titular: {titular}</h2>
 
@@ -189,8 +199,9 @@ const FormaPago = ({ match }) => {
                         </div>
 
                         <div id="efectivo" className="tabulador-content">
-                            <h3>Pagos en efectivo</h3>
-                            <p>Contacta al vendedor para realizar tu pago por este medio...</p>
+                            <h2>Pagos en efectivo</h2>
+                            <Link onClick={onRegistrarPedido} className='btn btn-primary'>Elegir</Link><p></p>
+                            <p>Antes de elegir este medio, contacta al vendedor al <strong>9612521968</strong></p>
                         </div>
 
                     </div>
@@ -212,6 +223,7 @@ const FormaPago = ({ match }) => {
             envioPor,
             precioEnvio,
             totalMasEnvio,
+            cobroInternacional,
             numero_celular,
             titular,
             cuentaTDD,

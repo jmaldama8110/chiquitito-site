@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import carritoReducer from '../../reducers/carritoReducer';
 import CarritoLista from '../carrito/CarritoLista';
 import totalCarrito from '../../selectors/carritoTotales';
-
+import { history } from '../../router/AppRouter';
 import carritoContext from '../../context/carritoContext';
 
 import Header from '../home/Header';
@@ -18,6 +18,9 @@ const CarritoAdmin = () => {
     const [total, setTotal] = useState(0);
     const [totalMasEnvio, setTotalMasEnvio] = useState(0)
 
+    const [cobroInternacional, setCobroInternacional ] = useState(0);
+    const [internacional, setInternacional] = useState(false);
+    const [error, setError] = useState('');
 
 
     useEffect(() => {
@@ -33,7 +36,8 @@ const CarritoAdmin = () => {
 
         if (localEnvio) {
             setEnvioPor(localEnvio.envioPor);
-            setPrecioEnvio(localEnvio.precioEnvio)
+            setPrecioEnvio(localEnvio.precioEnvio);
+            setCobroInternacional( localEnvio.cobroInternacional)
         }
 
 
@@ -50,6 +54,18 @@ const CarritoAdmin = () => {
 
     }, [carrito]);
 
+    const onFinalizarCompra = () => {
+
+        if( internacional ){
+            if( cobroInternacional > 0){
+                localStorage.setItem('delivery', JSON.stringify({ envioPor:'internacional', precioEnvio:'0',cobroInternacional }))
+                history.push('/pedidos');
+            } else {
+                setError('Chiquititodetalles hará el calculo que debes ingresar por el envio internacional...');
+            }
+        } else
+            history.push('/pedidos');
+    }
 
 
     return (
@@ -79,35 +95,64 @@ const CarritoAdmin = () => {
                         ? /// muestra el resumen de total //////
                         <div>
                             <h2>Total {carrito.length} articulos 
-                                { envioPor!=='local' ? ` = $${total} + ${envioPor}(${precioEnvio}) = `  : ' = '}
+                                { envioPor === 'fedex' || envioPor==='redpack' ? ` = $${total} + ${envioPor}(${precioEnvio}) = `  : ' = '}
                                 
                                 ${totalMasEnvio}</h2>
                             <div>
                                 <p>Selecciona Envio:</p>
                                 <input type="radio" id="fedex" name="envio" value="fedex" onClick={e => {
                                     setEnvioPor(e.target.value);
+                                    setInternacional(false);
+                                    setCobroInternacional(0);
                                     setPrecioEnvio(175);
                                     setTotalMasEnvio(total + 175);
-                                    localStorage.setItem('delivery', JSON.stringify({ envioPor:'fedex', precioEnvio:'175' }))
-                                }} /><label for="fedex">Fedex ($175)</label><br />
+                                    localStorage.setItem('delivery', JSON.stringify({ envioPor:'fedex', precioEnvio:'175',cobroInternacional }))
+                                }} /><label for="fedex"> Fedex (Nacional) ($175)</label><br />
 
                                 <input type="radio" id="redpack" name="envio" value="redpack" onClick={e => {
                                     setEnvioPor(e.target.value);
+                                    setInternacional(false);
+                                    setCobroInternacional(0);
                                     setPrecioEnvio(128);
                                     setTotalMasEnvio(total + 128);
-                                    localStorage.setItem('delivery', JSON.stringify({ envioPor:'estafeta', precioEnvio:'128' }))
-                                }} /><label for="estafeta">Redpack ($128)</label><br />
+                                    localStorage.setItem('delivery', JSON.stringify({ envioPor:'estafeta', precioEnvio:'128',cobroInternacional }))
+                                }} /><label for="estafeta"> Redpack (Nacional) ($128)</label><br />
 
                                 <input type="radio" id="local" name="envio" value="local" onClick={e => {
                                     setEnvioPor(e.target.value);
                                     setPrecioEnvio(0);
+                                    setInternacional(false);
+                                    setCobroInternacional(0);
                                     setTotalMasEnvio(total);
-                                    localStorage.setItem('delivery', JSON.stringify({ envioPor:'local', precioEnvio:'0' }))
-                                }} /><label for="local">Envio Local { envioPor==='local' ? `(* Lo paga el cliente al recibir el producto +/- $45 pesos en promedio...)`:``}</label>
+                                    localStorage.setItem('delivery', JSON.stringify({ envioPor:'local', precioEnvio:'0',cobroInternacional }))
+                                }} /><label for="local"> Envio Local { envioPor==='local' ? `(* Lo paga el cliente al recibir el producto +/- $45 pesos en promedio...)`:``}</label><br />
+
+                                <input type="radio" id="internacional" name="envio" value="internacional" onClick={e => {
+                                    setEnvioPor(e.target.value);
+                                    setPrecioEnvio(0);
+                                    setTotalMasEnvio(total + cobroInternacional);
+                                    setInternacional(true);
+                                }} /><label for="internacional"> Internacional (costo de acuerdo a cotización)</label><br />
+                                
+                                
+                                { internacional ? <div>
+                                    { error ? <p style={{color:"red"}}>{error}</p> : <p></p>}
+                                    <input type="text" value={cobroInternacional} placeholder="Ingresa importe de pago" onChange={
+                                    (e) => {
+                                        const importe = e.target.value;
+                                        if( !importe || importe.match(/^\d{1,}(\.\d{0,2})?$/) ){
+                                            setError('');
+                                            setCobroInternacional(importe);
+                                        }
+
+                                    }}/>
+                                    </div>
+                                    : <p></p>}
+                                
 
                             </div>
                             <p></p>
-                            <Link to="/pedidos" className='btn btn-primary'>Finalizar compra</Link><p></p>
+                            <button onClick={onFinalizarCompra} className="btn btn-primary">Finalizar compra</button> <p></p>
                             <Link to='/' className='btn btn-dark'>Continuar comprando</Link>
                         </div> /////////////////////////////////////////////
 

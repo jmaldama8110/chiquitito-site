@@ -26,7 +26,7 @@ const ClienteInfo = () => {
     const [envioPor, setEnvioPor] = useState('');
     const [precioEnvio, setPrecioEnvio] = useState(0);
     const [total, setTotal] = useState(0);
-
+    const [cobroInternacional, setCobroInter] = useState(0);
     const { userData } = useContext(authContext);
 
 
@@ -45,6 +45,7 @@ const ClienteInfo = () => {
         if (localEnvio) {
             setEnvioPor(localEnvio.envioPor);
             setPrecioEnvio(localEnvio.precioEnvio);
+            setCobroInter( localEnvio.cobroInternacional);
         }
         //////////////////////////////////////////////////////////////////////////////
 
@@ -122,7 +123,8 @@ const ClienteInfo = () => {
                     total,
                     envio_por: envioPor,
                     precio_envio: precioEnvio,
-                    total_mas_envio: parseFloat(total) +  parseFloat(precioEnvio),
+                    cobroInternacional,
+                    total_mas_envio: parseFloat(total) +  parseFloat(precioEnvio) + parseFloat(cobroInternacional),
                     fecha_pedido: Date.now(),
                     ...usuarioDb
                 }
@@ -155,7 +157,8 @@ const ClienteInfo = () => {
                 total,
                 envio_por: envioPor,
                 precio_envio: precioEnvio,
-                total_mas_envio: parseFloat(total) +  parseFloat(precioEnvio),
+                cobroInternacional,
+                total_mas_envio: parseFloat(total) +  parseFloat(precioEnvio) + parseFloat(cobroInternacional),
                 fecha_pedido: Date.now(),
                 ...usuarioDb
             }
@@ -204,16 +207,16 @@ const ClienteInfo = () => {
                                 <label>Apellido(s)</label>
                                 <input type='text' id='apellidosId' placeholder='Apellido(s)' defaultValue={apellidos} required onChange={(e) => setApellidos(e.target.value)}></input>
 
-                                <label>Calle y numero</label>
-                                <input type="text" placeholder="Direccion(Calle y numero, colonia, etc)" defaultValue={direccion} required onChange={(e) => setDireccion(e.target.value)}></input>
+                                <label>Direccion de envio</label>
+                                <input type="text" placeholder="Direccion(Calle, numero, Barrio, Asentamiento, etc)" defaultValue={direccion} required onChange={(e) => setDireccion(e.target.value)}></input>
 
                                 <label>Codigo postal</label>
                                 <input type="text" placeholder="Codigo postal" defaultValue={codigo_postal} required onChange={(e) => setCodigoPostal(e.target.value)}></input>
 
-                                <label>Estado</label>
+                                <label>Estado o Provincia</label>
                                 <input type='text' id='estadoId' placeholder='Estado' defaultValue={estado} required onChange={(e) => setEstado(e.target.value)}></input>
 
-                                <label>Municipio o Ciudad</label>
+                                <label>Ciudad / Municipio / Localidad / Delegacion </label>
                                 <input type='text' id='municipioId' placeholder='Municipio/Ciudad' defaultValue={municipio} required onChange={(e) => setMunicipio(e.target.value)}></input>
 
                                 <label>Correo electronico</label>
