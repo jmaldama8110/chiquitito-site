@@ -11,8 +11,8 @@
 
 <body>
     <script>
-        const appId = '1831372963679416';
-        const apiVersion = 'v9.0';
+        const appId = '%REACT_APP_FACEBOOK_APP_ID%';
+        const apiVersion = '%REACT_APP_FACEBOOK_APP_VERSION%';
 
         window.fbAsyncInit = function() {
             FB.init({
@@ -37,7 +37,9 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
-    <script src="https://www.paypal.com/sdk/js?client-id=AYT1rID9iNwekyiP1PYCOUPqace0W9kBz2dp3Lf61fxge6IoNPVCKRiEfiKAuZDgThiEXn_Pu2Y1LFPE&merchant-id=78PPXC9NK68EE&currency=MXN">
+    <script src="https://www.paypal.com/sdk/js?client-id=%REACT_APP_PAYPAL_CLIENT_ID%&merchant-id=%REACT_APP_PAYPAL_MERCHANT_ID%&currency=MXN">
+
+    
     </script>
 
     <div id="root"></div>
